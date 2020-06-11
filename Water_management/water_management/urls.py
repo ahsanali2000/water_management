@@ -22,7 +22,8 @@ from .views import home
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',home),
+    path('home/', home),
+    path('auth/',include('accounts.urls')),
 ]
 if settings.DEBUG:
     urlpatterns=urlpatterns + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
