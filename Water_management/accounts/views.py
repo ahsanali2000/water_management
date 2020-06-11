@@ -1,11 +1,61 @@
 from django.http import HttpResponseNotFound
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
-from .forms import CustomerRegisterForm
-from .models import Person
 
+from .forms import CustomerRegisterForm
+from .models import Person,Customer
 from django.conf import settings
 base_dir = settings.BASE_DIR
+
+def details_view(request, username=None,*args,**kwargs):
+
+    if request.POST:
+        print('post')
+        selection=request.POST.get('selected')
+        print(selection)
+        if selection=="1":
+            user=Customer.objects.filter(username=username)
+            user.update(is_approved=True, is_active=True)
+            return redirect('/home/')
+        if selection=="2":
+            user=Customer.objects.filter(username=username)
+            user.update(is_approved=False)
+            return redirect('/home/')
+        if selection=="3":
+            user=Customer.objects.filter(username=username)
+            user.update(is_active=False)
+            return redirect('/home/')
+
+
+        return redirect('/home/')
+    elif request.user.is_authenticated and  (request.user.is_superuser or request.user.username==username):
+        instance=get_object_or_404(Customer, username=username)
+        context={
+            'user':instance
+        }
+        return render(request, 'accounts/profile.html',context=context)
+    return HttpResponseNotFound()
+def list_view(request):
+    if request.user.is_authenticated and request.user.is_superuser:
+        user=Customer.objects.all()
+        context={
+            'users':user,
+            'admin':request.user
+        }
+        return render(request,'accounts/all-customers.html',context=context)
+    return HttpResponseNotFound()
+def account_requests(request):
+    if request.POST:
+        pass
+    if request.user.is_authenticated and request.user.is_superuser:
+        users= Person.objects.filter(is_approved=False)
+        print(users)
+        context={
+            'users':users,
+            'requesting':request.user
+        }
+        return render(request,'accounts/requests.html',context)
+    return HttpResponseNotFound()
 
 def register_user(request):
     if request.user.is_authenticated:
@@ -16,14 +66,10 @@ def register_user(request):
             form = CustomerRegisterForm(request.POST)
             form.ConfirmPassword=request.POST.get('ConfirmPassword')
             print('view clean')
-            print(request.POST)
             if form.is_valid():
+
                 form.save()
-                username = form.cleaned_data.get('username')
-                password = form.cleaned_data.get('password')
-                user = authenticate(username=username, password=password)
-                login(request,user)
-                return redirect('/home/')
+                return render(request,'accounts/approval.html')
             else:
                 context['form'] = form
         else:
@@ -46,12 +92,16 @@ def login_user(request):
 
             if user:
                 if user.is_active:
-                    login(request, user)
+                    if user.is_approved :
+                        login(request, user)
 
-                    return redirect('/home/')
+                        return redirect('/home/')
+                    else:
+                        context['error'] = 'User is not approved.'
+                        return render(request,'accounts/approval.html')
                 else:
-                    context['error'] = 'User is not active.'
-                    return render(request, 'accounts/login.html', context)
+                    context['error'] = 'User is not Blocked.'
+                    HttpResponseNotFound()
 
             else:
                 context['error'] = 'Invalid Credentials'

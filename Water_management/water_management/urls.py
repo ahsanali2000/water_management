@@ -18,11 +18,12 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 from django.urls import include
-from .views import home
+from .views import home,check
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', home),
+    path('check/', check),
     path('auth/',include('accounts.urls')),
 ]
 if settings.DEBUG:

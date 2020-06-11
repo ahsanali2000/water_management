@@ -23,6 +23,7 @@ class CustomerRegisterForm(forms.ModelForm):
             'username',
             'email',
             'cnic',
+            'is_customer',
             'password',
             'PhoneNo',
             'MonthlyBill',
@@ -39,7 +40,8 @@ class CustomerRegisterForm(forms.ModelForm):
         if password1 != password2:
             raise forms.ValidationError("Passwords don't match")
         return password2
-
+    def clean_is_customer(self):
+        return True
     def save(self, commit=True):
         # Save the provided password in hashed format
         user = super().save(commit=False)

@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.db import models as md
 
 # Create your models here.
+from django.urls import reverse
 
 
 class CustomerManager(BaseUserManager):
@@ -18,6 +19,7 @@ class CustomerManager(BaseUserManager):
                         NoOfBottles=0,
                         AmountDue=0,
                         MonthlyBill=0,
+
                         ):
         """
         Creates and saves a User with the given email and password.
@@ -32,7 +34,6 @@ class CustomerManager(BaseUserManager):
         user_obj = self.model(
             email=self.normalize_email(email),
         )
-        user_obj.is_customer=True
         user_obj.username=username
         user_obj.email=email
         user_obj.name=name
@@ -45,6 +46,23 @@ class CustomerManager(BaseUserManager):
         user_obj.set_password(password)
         user_obj.save(using=self._db)
         return user_obj
+
+    def create_superuser(self,email, username, password,name,):
+        """
+        Creates and saves a superuser with the given email and password.
+        """
+        user = self.create_user(
+            name=name,
+            email=email,
+            username=username,
+            password=password
+        )
+
+        user.is_staff=True
+        user.is_admin = True
+        user.save(using=self._db)
+        return user
+
 
 class UserManager(BaseUserManager):
     def create_user(self,
@@ -87,7 +105,6 @@ class UserManager(BaseUserManager):
             PhoneNo=PhoneNo,
         )
 
-        user.is_employee = True
         user.is_staff=True
         user.set_password(password)
         user.save(using=self._db)
@@ -120,6 +137,7 @@ class Person(AbstractBaseUser):
     is_active = md.BooleanField(default=True)
     is_admin = md.BooleanField(default=False)
     is_staff = md.BooleanField(default=False)
+    is_approved = md.BooleanField(default=False)
     is_customer=md.BooleanField(default=False)
     is_employee=md.BooleanField(default=False)
     created_at = md.DateTimeField(auto_now_add=True)
@@ -129,6 +147,9 @@ class Person(AbstractBaseUser):
     REQUIRED_FIELDS = ['name','email']
     objects = CustomerManager()
 
+
+    def get_url(self):
+        return reverse('details', kwargs={'username':self.username})
     @property
     def is_superuser(self):
         return self.is_admin
@@ -150,9 +171,10 @@ class Person(AbstractBaseUser):
 class Customer(Person):
     NoOfBottles = md.IntegerField(default=0, null=True, blank=True)
     AmountDue = md.IntegerField(default=0, null=True, blank=True)
-    approved = md.BooleanField(default=False, null=True, blank=True)
     MonthlyBill = md.IntegerField(default=0, null=True, blank=True)
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['name']
     objects = CustomerManager()
+    def get_url(self):
+        return reverse('details', kwargs={'username':self.username})

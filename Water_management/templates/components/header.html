@@ -18,10 +18,15 @@
                     <li class="nav-item">
                         <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item">
-                         <a class="nav-item nav-link" href="#">Order</a>
-                    </li>
+                    {% if request.user.is_superuser %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/auth/requests">Requests</a>
+                        </li><li class="nav-item">
+                            <a class="nav-link" href="/auth/all">All Customers</a>
+                        </li>
+                    {% endif %}
                 </ul>
+
             {% if request.user.is_authenticated %}
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
