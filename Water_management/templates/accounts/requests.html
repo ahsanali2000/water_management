@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col-3 bg-light">
             <div class="text-center ">
-                <h3>{{requesting.name}} </h3>
+                <a href = '{{ request.user.get_url }}' style="color: black;font-size: 2rem" >{{requesting.name}} </a>
             </div>
 
             <div class="row">
@@ -65,22 +65,21 @@
 
 
         <div class="col-9 bg-light">
-        <h1>User Requests</h1>
+        <h1 class="text-center">User Requests</h1>
     {% if users %}
-        <form method="post" action="/">{% csrf_token %}
             {%for us in users %}
                 <div class="row">
                  <div class="col">
                     <div class="row bg-secondary border-dark border  mt-2 mb-2 pt-2 pb-2 rounded text">
 
-                        <a class="pl-2 col-3 overflow-hidden" href='{{ us.get_url }}' style="color:black;font-size: 1.4em;">{{ us.name }}</a>
+                        <a class="pl-2 col-3 overflow-hidden text-center" href='{{ us.get_url }}' style="color:black;font-size: 1.4em;">{{ us.name }}</a>
                             <div class="col-5 ml-2">
                                 <div class="row">
-                                    <p class="col-6">Username:{{ us.username }}</p>
+                                    <p class="col-6 text-left">Username:{{ us.username }}</p>
 
                                 </div>
                                 <div class="row">
-                                    <p class="col-6">Email:{{ us.email }}</p>
+                                    <p class="col-6 text-left">Email:{{ us.email }}</p>
 
                                 </div>
                             </div>
@@ -88,8 +87,6 @@
                  </div>
                 </div>
             {% endfor %}
-         <button type="submit" class="btn  btn-dark">SAVE</button>
-        </form>
         </div>
     {% else %}
          <h5 class="text-center overflow-hidden mt-5">No user request found</h5>

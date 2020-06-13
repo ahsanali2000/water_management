@@ -15,7 +15,7 @@
     <div class="row">
         <div class="col-3  bg-light">
             <div class="text-center ">
-                <h3>{{admin.name}} </h3>
+                <a href = '{{ request.user.get_url }}' style="color: black;font-size: 2rem" >{{admin.name}} </a>
             </div>
 
             <div class="row">
@@ -66,9 +66,8 @@
 
 
         <div class="col-9 bg-light">
-        <h1>All Customers List</h1>
+        <h1 class="text-center">All Customers List</h1>
     {% if users %}
-        <form method="post" action="/">{% csrf_token %}
             {%for us in users %}
                 <div class="row">
                  <div class="col">
@@ -87,8 +86,6 @@
                  </div>
                 </div>
             {% endfor %}
-         <button type="submit" class="btn  btn-dark">SAVE</button>
-        </form>
         </div>
     {% else %}
          <h5 class="text-center overflow-hidden mt-5">No user request found</h5>

@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'database',
     'accounts',
     'crispy_forms',
+    'Admin',
+    'customer',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MIDDLEWARE = [
@@ -131,4 +133,4 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "static_cdn", "media_root")
 
 
-AUTH_USER_MODEL = 'accounts.Person'
+AUTH_USER_MODEL = 'database.Person'

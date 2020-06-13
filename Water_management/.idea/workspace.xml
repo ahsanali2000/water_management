@@ -2,21 +2,211 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="461b0a9e-2094-4b1b-a4d3-d4aa22a48dbd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/accounts/all-customers.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/accounts/approval.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/accounts/profile.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/accounts/requests.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/checking.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Admin/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Admin/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Admin/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Admin/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Admin/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Admin/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Admin/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Admin/views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/customer/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/customer/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/customer/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/customer/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/customer/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/customer/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/customer/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/customer/views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/0002_person_is_available.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/base.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/bootstrap.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/compatibility.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/exceptions.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/helper.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/layout.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/layout_slice.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap/accordion-group.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap/accordion.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap/betterform.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap/display_form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap/errors.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap/errors_formset.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap/field.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap/layout/alert.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap/layout/baseinput.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap/layout/button.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap/layout/buttonholder.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap/layout/checkboxselectmultiple.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap/layout/checkboxselectmultiple_inline.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap/layout/column.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap/layout/div.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap/layout/field_errors.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap/layout/field_errors_block.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap/layout/field_with_buttons.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap/layout/fieldset.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap/layout/formactions.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap/layout/help_text.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap/layout/help_text_and_errors.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap/layout/multifield.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap/layout/prepended_appended_text.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap/layout/radioselect.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap/layout/radioselect_inline.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap/layout/row.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap/layout/tab-link.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap/layout/tab.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap/layout/uneditable_input.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap/table_inline_formset.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap/uni_form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap/uni_formset.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap/whole_uni_form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap/whole_uni_formset.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap3/accordion-group.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap3/accordion.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap3/betterform.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap3/display_form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap3/errors.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap3/errors_formset.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap3/field.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap3/inputs.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap3/layout/alert.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap3/layout/baseinput.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap3/layout/button.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap3/layout/buttonholder.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap3/layout/checkboxselectmultiple.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap3/layout/checkboxselectmultiple_inline.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap3/layout/column.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap3/layout/div.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap3/layout/field_errors.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap3/layout/field_errors_block.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap3/layout/field_with_buttons.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap3/layout/fieldset.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap3/layout/formactions.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap3/layout/help_text.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap3/layout/help_text_and_errors.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap3/layout/inline_field.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap3/layout/multifield.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap3/layout/prepended_appended_text.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap3/layout/radioselect.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap3/layout/radioselect_inline.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap3/layout/row.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap3/layout/tab-link.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap3/layout/tab.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap3/layout/uneditable_input.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap3/multifield.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap3/table_inline_formset.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap3/uni_form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap3/uni_formset.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap3/whole_uni_form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap3/whole_uni_formset.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap4/accordion-group.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap4/accordion.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap4/betterform.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap4/display_form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap4/errors.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap4/errors_formset.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap4/field.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap4/inputs.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap4/layout/alert.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap4/layout/baseinput.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap4/layout/button.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap4/layout/buttonholder.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap4/layout/checkboxselectmultiple.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap4/layout/checkboxselectmultiple_inline.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap4/layout/column.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap4/layout/div.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap4/layout/field_errors.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap4/layout/field_errors_block.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap4/layout/field_file.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap4/layout/field_with_buttons.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap4/layout/fieldset.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap4/layout/formactions.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap4/layout/help_text.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap4/layout/help_text_and_errors.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap4/layout/inline_field.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap4/layout/multifield.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap4/layout/prepended_appended_text.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap4/layout/radioselect.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap4/layout/radioselect_inline.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap4/layout/row.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap4/layout/tab-link.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap4/layout/tab.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap4/layout/uneditable_input.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap4/table_inline_formset.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap4/uni_form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap4/uni_formset.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap4/whole_uni_form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/bootstrap4/whole_uni_formset.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/uni_form/betterform.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/uni_form/display_form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/uni_form/errors.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/uni_form/errors_formset.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/uni_form/field.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/uni_form/field.strict.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/uni_form/layout/baseinput.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/uni_form/layout/buttonholder.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/uni_form/layout/column.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/uni_form/layout/div.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/uni_form/layout/fieldset.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/uni_form/layout/multifield.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/uni_form/layout/row.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/uni_form/multifield.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/uni_form/uni_form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/uni_form/uni_formset.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/uni_form/whole_uni_form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templates/uni_form/whole_uni_formset.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templatetags/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templatetags/crispy_forms_field.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templatetags/crispy_forms_filters.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templatetags/crispy_forms_tags.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/templatetags/crispy_forms_utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/tests/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/tests/conftest.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/tests/forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/tests/templates/crispy_render_template.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/tests/templates/custom_field_template.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/tests/templates/custom_form_template.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/tests/templates/custom_form_template_with_context.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/tests/test_dynamic_api.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/tests/test_form_helper.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/tests/test_layout.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/tests/test_layout_objects.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/tests/test_settings.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/tests/test_tags.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/tests/test_utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/tests/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/tests/utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/crispy_forms/utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/django_crispy_forms-1.9.1.dist-info/INSTALLER" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/django_crispy_forms-1.9.1.dist-info/LICENSE.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/django_crispy_forms-1.9.1.dist-info/METADATA" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/django_crispy_forms-1.9.1.dist-info/RECORD" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/django_crispy_forms-1.9.1.dist-info/WHEEL" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/django_crispy_forms-1.9.1.dist-info/top_level.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Delevoper_Data/Database Structure.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Delevoper_Data/Features.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Delevoper_Data/Model Access.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Delevoper_Data/Model Updates.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Delevoper_Data/Session variables.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/accounts/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/migrations/0001_initial.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/accounts/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/accounts/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/accounts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/accounts/all-customers.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/accounts/all-customers.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/accounts/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/accounts/profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/accounts/requests.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/accounts/requests.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/components/footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/footer.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/components/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/header.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/water_management/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/water_management/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/water_management/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/water_management/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/water_management/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/water_management/views.py" afterDir="false" />
     </list>
@@ -47,11 +237,19 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="C:\Users\Ahsan Ali\Desktop\Water Project\Water_management\.idea" />
+      </set>
+    </option>
   </component>
   <component name="ProjectId" id="1cwXXh5kQxejsbpoKecASZlACHx" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -69,11 +267,13 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/accounts" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates/customer" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Ahsan Ali\Desktop\Water Project\Water_management\templates\customer" />
+      <recent name="C:\Users\Ahsan Ali\Desktop\Water Project\Water_management\customer" />
       <recent name="C:\Users\Ahsan Ali\Desktop\Water Project\Water_management\accounts" />
     </key>
   </component>
@@ -96,6 +296,7 @@
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="water_management.settings" />
       </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="" />
@@ -130,6 +331,11 @@
       <workItem from="1591861712604" duration="5595000" />
       <workItem from="1591874095989" duration="12184000" />
       <workItem from="1591886650532" duration="9406000" />
+      <workItem from="1592006885523" duration="3091000" />
+      <workItem from="1592009996917" duration="250000" />
+      <workItem from="1592010267161" duration="5266000" />
+      <workItem from="1592057209422" duration="1515000" />
+      <workItem from="1592059454422" duration="6743000" />
     </task>
     <servers />
   </component>
@@ -151,5 +357,39 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="137" y="20" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1592009974308">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="137" y="20" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1592009974308" />
+    <state x="413" y="112" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1592010243246">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="413" y="112" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728@0.0.1366.728" timestamp="1592010243246" />
+    <state x="402" y="0" key="#water_management" timestamp="1592007290080">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="402" y="0" key="#water_management/0.0.1366.728@0.0.1366.728" timestamp="1592007290080" />
+    <state width="1323" height="399" key="GridCell.Tab.0.bottom" timestamp="1592054619224">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="399" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1592054619224" />
+    <state width="1323" height="399" key="GridCell.Tab.0.center" timestamp="1592054619223">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="399" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1592054619223" />
+    <state width="1323" height="399" key="GridCell.Tab.0.left" timestamp="1592054619223">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="399" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1592054619223" />
+    <state width="1323" height="399" key="GridCell.Tab.0.right" timestamp="1592054619223">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="399" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1592054619223" />
+    <state x="184" y="7" key="SettingsEditor" timestamp="1592007673195">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="184" y="7" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1592007673195" />
   </component>
 </project>

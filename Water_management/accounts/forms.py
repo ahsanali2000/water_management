@@ -1,12 +1,10 @@
 from django import forms
 
-from .models import Customer
-
-
+from database.models import Customer
 
 
 class CustomerRegisterForm(forms.ModelForm):
-    confirm_pass = forms.CharField(widget=forms.PasswordInput ,label='Confirm Password')
+    confirm_pass = forms.CharField(widget=forms.PasswordInput, label='Confirm Password')
 
     class Meta:
         model = Customer
@@ -15,7 +13,7 @@ class CustomerRegisterForm(forms.ModelForm):
             'email': 'Email Address',
             'PhoneNo': 'Phone Number',
         }
-        widgets={
+        widgets = {
             'password': forms.PasswordInput
         }
         fields = [
@@ -29,7 +27,7 @@ class CustomerRegisterForm(forms.ModelForm):
             'MonthlyBill',
             'NoOfBottles',
             'AmountDue'
-            ]
+        ]
 
     def clean_confirm_pass(self):
         print('im running')
@@ -40,8 +38,10 @@ class CustomerRegisterForm(forms.ModelForm):
         if password1 != password2:
             raise forms.ValidationError("Passwords don't match")
         return password2
+
     def clean_is_customer(self):
         return True
+
     def save(self, commit=True):
         # Save the provided password in hashed format
         user = super().save(commit=False)

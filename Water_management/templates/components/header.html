@@ -16,13 +16,13 @@
 
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-item nav-link active" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
                     </li>
                     {% if request.user.is_superuser %}
                         <li class="nav-item">
-                            <a class="nav-link" href="/auth/requests">Requests</a>
+                            <a class="nav-link" href="/admin/requests">Requests</a>
                         </li><li class="nav-item">
-                            <a class="nav-link" href="/auth/all">All Customers</a>
+                            <a class="nav-link" href="/admin/all">All Customers</a>
                         </li>
                     {% endif %}
                 </ul>

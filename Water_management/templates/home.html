@@ -12,7 +12,7 @@
     <div class="row">
         <div class="col-3">
             <div class="text-center ">
-                <h3>{{user.name}} </h3>
+                <a href = '{{ request.user.get_url }}' style="color: black;font-size: 2rem" >{{user.name}} </a>
             </div>
             <p>Username:&nbsp;&nbsp;{{user.username}} </p>
             <p>email:&nbsp;&nbsp;{{user.email}} </p>
