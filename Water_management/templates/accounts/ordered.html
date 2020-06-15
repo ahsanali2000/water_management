@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Order</title>
+{% endblock %}
+
+
+{% block header %}
+{% include 'components/header.html' %}
+{% endblock %}
+
+
+{% block content %}
+<div class="container ">
+    <h2>Ordered by:</h2>
+    <div class="text-center">
+    <p>Name:&nbsp&nbsp&nbsp{{ user.name }}</p>
+    <p>Name:&nbsp&nbsp&nbsp{{ user.username }}</p>
+    <p>Name:&nbsp&nbsp&nbsp{{ user.PhoneNo }}</p>
+    <p>Name:&nbsp&nbsp&nbsp{{ user.email }}</p>
+    <p>Name:&nbsp&nbsp&nbsp{{ user.cnic }}</p>
+    </div>
+    <h2>Order Details:</h2>
+    {% for all in all_list %}
+        {% if forloop.counter0|divisibleby:'2' %}
+            <div class="row">
+                <div class="col-3 ml-auto">
+            <p> Number of {{all}}:</p>
+                </div>
+        {% else %}
+            <div class="col-1 mr-auto">
+                <p>{{ all }}</p>
+            </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    <div class="text-center">
+        <p>Address: {{  address }}</p>
+    </div>
+    <h2>Order Type:</h2>
+    <div class="text-center">
+    {% if frequency == 1 %}
+        <p>This order will be delivered only once.</p>
+    {% elif frequency == 2 %}
+        <p>This order is recursive and will be delivered every week</p>
+    {% endif %}
+    </div>
+{% endblock %}
+</div>
+
+
+{% block footer %}
+{% include 'components/footer.html' %}
+{% endblock %}

@@ -18,7 +18,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 from django.urls import include
-from .views import home, check
+from .views import home, check,change_password
 
 urlpatterns = [
     path('', admin.site.urls),
@@ -26,7 +26,7 @@ urlpatterns = [
     path('admin/', include('Admin.urls')),
     path('customer/', include('customer.urls')),
 
-
+    path('change_password/', change_password),
     path('home/', home, name='home'),
     path('check/', check),
 ]

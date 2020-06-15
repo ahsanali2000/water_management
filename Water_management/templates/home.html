@@ -10,19 +10,58 @@
         {% if user.is_authenticated %}
 <div class="container">
     <div class="row">
-        <div class="col-3">
-            <div class="text-center ">
-                <a href = '{{ request.user.get_url }}' style="color: black;font-size: 2rem" >{{user.name}} </a>
+        <div class="col-3 ">
+            <div class="text-center">
+                <h3>You Profile</h3><hr>
             </div>
-            <p>Username:&nbsp;&nbsp;{{user.username}} </p>
-            <p>email:&nbsp;&nbsp;{{user.email}} </p>
-            <p>CNIC:&nbsp;&nbsp;{{user.cnic}} </p>
-            <p>Phone Number:&nbsp;&nbsp;{{user.PhoneNo}} </p>
+            <div class="card">
+              <div class="text-center card-header">
+                <a  style="color: black;font-size: 1.3rem" >{{user.name}} </a>
+            </div>
+              <div class="card-body">
+
+            <p class="card-text">Username:&nbsp;&nbsp;{{user.username}} </p>
+            <p class="card-text">email:&nbsp;&nbsp;{{user.email}} </p>
+            <p class="card-text">CNIC:&nbsp;&nbsp;{{user.cnic}} </p>
+            <p class="card-text">Phone Number:&nbsp;&nbsp;{{user.PhoneNo}} </p>
+
+                  <div class="text-center card-header">
+                <a href = '{{ request.user.get_url }}'   class="btn btn-primary">View Profile</a>
+                  </div>
+              </div>
+            </div>
+
 
         </div>
-        <div class="col-9 text-center bg-light">
-            <h1>This is Home page</h1>
+        <div class="col-9 ">
+            {% if request.user.is_authenticated %}
+                <div class="text-center">
+                    <h3>Pending Orders</h3><hr>
+                </div>
+                {% for order in orders %}
+                <div class="card mb-3">
+                    <div class="text-center">
+                      <h5 class="card-header">Order Id: {{ order.id }}</h5>
+                    </div>
+                  <div class="card-body">
+                    <h5 class="card-title">Order Date/Time: {{ order.ordered_at }}</h5>
+                    {% if  order.confirmed %}
+                        <h5 class="card-title">Status: Confirmed by admin but not delivered yet</h5>
+                    {% else %}
+                        <h5 class="card-title">Status: Not confirmed by admin yet</h5>
+                    {% endif %}
+                    <div class="text-center">
+                    <a href="{{ order.get_url }}" class="btn btn-primary">View Details</a>
+                    </div>
+                  </div>
+
+                </div>
+            {% endfor %}
+            {% endif %}
         </div>
+
+
+
     </div>
 </div>
 

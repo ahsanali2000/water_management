@@ -11,7 +11,12 @@ base_dir = settings.BASE_DIR
 
 def register_user(request):
     if request.user.is_authenticated:
-        return redirect('/home/')
+        if request.user.is_superuser:
+            return redirect('/admin/home/')
+        elif request.user.is_customer:
+            return redirect('/customer/home/')
+        elif request.user.is_employee:
+            return redirect('/employee/home')
     else:
         context = {}
         if request.POST:
@@ -32,7 +37,12 @@ def register_user(request):
 def login_user(request):
     context = {}
     if request.user.is_authenticated:
-        return redirect('/home/')
+        if request.user.is_superuser:
+            return redirect('/admin/home/')
+        elif request.user.is_customer:
+            return redirect('/customer/home/')
+        elif request.user.is_employee:
+            return redirect('/employee/home')
     else:
         if request.method == "POST":
             username = request.POST['username']
@@ -43,8 +53,12 @@ def login_user(request):
                 if user.is_available:
                     if user.is_approved:
                         login(request, user)
-
-                        return redirect('/home/')
+                        if user.is_customer:
+                            return redirect('/customer/home/')
+                        if user.is_employee:
+                            return redirect('/employee/home/')
+                        if user.is_superuser:
+                            return redirect('/admin/home/')
                     else:
                         return render(request, 'accounts/approval.html')
                 else:
