@@ -4,25 +4,35 @@ from database.models import Products, Order, Customer
 from ast import literal_eval
 
 def home(request):
-    context = {
-        'user': request.user,
-        'orders': Order.objects.filter(customer=request.user, delivered=False)
-    }
     if request.user.is_authenticated:
-        return render(request, 'home.html', context)
-    else:
-        return render(request, 'home.html')
+        context = {
+            'user': request.user,
+            'orders': Order.objects.filter(customer=request.user, delivered=False),
+            'massege': "My orders"
+        }
+        if request.user.is_customer:
+            return render(request, 'home.html', context)
+    return HttpResponseNotFound()
 
 
 
 def view_order(request, order_id):
-    order = Order.objects.filter(id=order_id).first()
-    user_ordered = order.customer
-    if request.user.is_authenticated and (request.user.is_superuser or request.user.username == user_ordered.username):
+    order_show = Order.objects.filter(id=order_id).first()
+    user_ordered = order_show.customer
+
+
+    if request.POST and ( request.user.is_superuser or request.user.is_employee):
+        delivered= request.POST.get('delivered')
+        if delivered:
+            order_show.delivered=True
+            order_show.save()
+        return redirect("/employee/delivered_orders")
+
+    elif request.user.is_authenticated and (request.user.is_superuser or request.user.username == user_ordered.username or request.user.is_employee):
         instance = get_object_or_404(Order, id=order_id)
-        address = order.address
-        frequency = order.frequency
-        desc = order.desc
+        address = order_show.address
+        frequency = order_show.frequency
+        desc = order_show.desc
 
         splitted = desc.split(',')
         name_list = []
@@ -51,6 +61,7 @@ def view_order(request, order_id):
             'address': address,
             'frequency': int(frequency),
             'user': user_ordered,
+            'order':order_show,
         }
         return render(request, 'accounts/ordered.html', context=context)
 
@@ -58,15 +69,15 @@ def view_order(request, order_id):
 
 
 def my_orders(request):
-    if request.user.is_authenticated and not request.user.is_superuser:
+    if request.user.is_authenticated and not request.user.is_superuser and request.user.is_customer:
         orders = Order.objects.filter(customer=request.user)
         context = {
             'orders': orders
         }
         return render(request, 'customer/view_orders.html', context=context)
-
+    return HttpResponseNotFound()
 def order_confirmed(request):
-    if request.POST and request.user.is_authenticated:
+    if request.POST and request.user.is_authenticated and request.user.is_customer:
         order_str=request.POST.get("order")
         order_dict = literal_eval(order_str)
         desc= order_dict['desc']
@@ -76,11 +87,11 @@ def order_confirmed(request):
 
         order= Order.objects.create(desc=desc, address=address,frequency=frequency, customer=customer)
         return redirect(order.get_url())
-
+    return HttpResponseNotFound()
 
 
 def order(request):
-    if request.user.is_authenticated and not request.user.is_superuser:
+    if request.user.is_authenticated and not request.user.is_superuser and request.user.is_customer:
         context = {
             'products': Products.objects.all(),
         }

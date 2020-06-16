@@ -11,43 +11,113 @@
 
 {% block content %}
 <div class="container">
-<div class="row">
-    <div class="col-12">
+    <div class="text-center">
         <h1>{{ user.name }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.email }}</h1>
-        <h1>{{ user.cnic }}</h1>
-        <h1>{{ user.PhoneNo }}</h1>
-    </div>
-    <div class="col-12">
-    <a href="/change_password/" class= " btn btn-dark">Change Password</a>
-    </div>
-    {% if request.user.is_superuser and not user.is_superuser %}
+    </div><hr>
+
+
+
+<table class="table">
+  <thead>
+    <tr >
+      <th scope="col" style="width: 50%" class="border-0 text-right">Username</th>
+      <td scope="col" class="border-0 text-left">{{ user.username }}</td>
+    </tr>
+    <tr >
+      <th scope="col" style="width: 50%"  class="border-0 text-right">Email</th>
+      <td scope="col" class="border-0 text-left">{{ user.email }}</td>
+    </tr>
+    <tr >
+      <th scope="col "  style="width: 50%" class="border-0 text-right">CNIC</th>
+      <td scope="col" class="border-0 text-left">{{ user.cnic }}</td>
+    </tr>
+    <tr >
+      <th scope="col"  style="width: 50%" class="border-0 text-right">Phone Number</th>
+      <td scope="col" class="border-0 text-left">{{ user.PhoneNo }}</td>
+    </tr>
+  </thead>
+
+</table>
+
+{% if not user.is_superuser and not user.is_employee  and not request.user.is_superuser %}
+        <div class="container">
+        <table class="table table-primary">
+          <thead>
+            <tr >
+              <th scope="col" style="width: 50%" class="text-right">Bottles</th>
+              <td scope="col" class=" text-left">{{ user.NoOfBottles }}</td>
+            </tr>
+            <tr >
+              <th scope="col" style="width: 50%" class="text-right">Monthly Bill</th>
+              <td scope="col" class="text-left">{{ user.MonthlyBill }}</td>
+            </tr>
+            <tr >
+              <th scope="col " style="width: 50%" class="text-right">Due Amount</th>
+              <td scope="col" class="text-left">{{ user.AmountDue }}</td>
+            </tr>
+          </thead>
+
+        </table>
+        </div>
+
+
+
+    {% endif %}
+
+    {% if request.user.is_superuser and user.is_customer%}
     <div class="row">
         <div class="col-12">
             <form method="post" action="" novalidate>{% csrf_token %}
-                <input type="radio" name="selected" value="1">Approved<br>
-                <input type="radio" name='selected' value="2">Not Approved<br>
-                <input type="radio" name="selected" value="3">Block<br>
-                 Number of Bottles:<input type='text' name='NoOfBottles' value='{{ user.NoOfBottles }}'><br>
-                 Monthly Bill:<input type='text' name='MonthlyBill' value='{{ user.MonthlyBill }}'><br>
-                 Amount Due:<input type='text' name='AmountDue' value='{{ user.AmountDue }}'><br>
-                <br><button type="Submit" class="btn btn-dark">Save</button>
+                <table class="table table-primary">
+                  <thead>
+                    <tr >
+                      <th scope="col" style="width: 50%" class="text-right">Bottles</th>
+                      <td scope="col" class=" text-left"><input type='text' name='NoOfBottles' value='{{ user.NoOfBottles }}'></td>
+                    </tr>
+                    <tr >
+                      <th scope="col" style="width: 50%" class="text-right">Monthly Bill</th>
+                      <td scope="col" class="text-left"><input type='text' name='MonthlyBill' value='{{ user.MonthlyBill }}'></td>
+                    </tr>
+                    <tr >
+                      <th scope="col " style="width: 50%" class="text-right">Due Amount</th>
+                      <td scope="col" class="text-left"><input type='text' name='AmountDue' value='{{ user.AmountDue }}'></td>
+                    </tr>
+                  </thead>
+                </table>
+
+                <table class="table">
+                  <thead>
+                    <tr >
+                      <th scope="col" style="width: 50%" class="text-right border-0"><input type="radio" name="selected" value="1"></th>
+                      <td scope="col" class=" text-left border-0">Approve</td>
+                    </tr>
+                    <tr >
+                      <th scope="col" style="width: 50%" class="text-right border-0"><input type="radio" name="selected" value="2"></th>
+                      <td scope="col" class="text-left  border-0">Un-Approve</td>
+                    </tr>
+                    <tr >
+                      <th scope="col " style="width: 50%" class="text-right border-0"><input type="radio" name="selected" value="3"></th>
+                      <td scope="col" class="text-left border-0">Block></td>
+                    </tr>
+                  </thead>
+                </table>
+
+                <div class="text-center">
+                <hr class="mt-5"><button type="Submit" class="btn btn-dark">Save</button>
+                </div>
              </form>
         </div>
     </div>
 
     {% endif %}
-    {% if not user.is_superuser  and not request.user.is_superuser%}
-    <div class="row">
-    <div class="col-12">
-        <h1>Bottles: {{ user.NoOfBottles }}</h1>
-        <h1>Bill:{{ user.MonthlyBill }}</h1>
-        <h1>Pending Amount: {{ user.AmountDue }}</h1>
-    </div>
-    </div>
 
-    {% endif %}
+
+{% if request.user.username == user.username %}
+    <hr>
+    <div class="text-center mt-5">
+    <a href="/edit_profile/" class= " btn btn-dark">Edit Profile</a>
+    </div>
+{% endif %}
 
 
 </div>

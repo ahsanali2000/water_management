@@ -18,15 +18,16 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 from django.urls import include
-from .views import home, check,change_password
+from .views import home, check,edit_profile
 
 urlpatterns = [
     path('', admin.site.urls),
     path('auth/', include('accounts.urls')),
     path('admin/', include('Admin.urls')),
     path('customer/', include('customer.urls')),
+    path('employee/', include('employee.urls')),
 
-    path('change_password/', change_password),
+    path('edit_profile/', edit_profile),
     path('home/', home, name='home'),
     path('check/', check),
 ]

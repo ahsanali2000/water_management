@@ -2,9 +2,8 @@
 {% load static %}
 
 {% block title %}
-    <title>Home</title>
+    <title>Confirmed Orders</title>
 {% endblock %}
-
 
 
 {% block header %}
@@ -31,7 +30,7 @@
             <p class="card-text">CNIC:&nbsp;&nbsp;{{user.cnic}} </p>
             <p class="card-text">Phone Number:&nbsp;&nbsp;{{user.PhoneNo}} </p>
 
-                  <div class="text-center card-header bg-transparent">
+                  <div class="text-center bg-transparent card-header">
                 <a href = '{{ request.user.get_url }}'   class="btn btn-primary">View Profile</a>
                   </div>
               </div>
@@ -45,7 +44,7 @@
                     <h3>{{ massege }}</h3><hr>
                 </div>
                 {% for order in orders %}
-                <div class="card mb-3">
+                <div class="card">
                     <div class="text-center">
                       <h5 class="card-header">Order Id: {{ order.id }}</h5>
                     </div>

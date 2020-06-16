@@ -9,11 +9,12 @@ def home(request):
     if request.user.is_authenticated:
         context = {
             'user': request.user,
-            'orders': Order.objects.filter(delivered=False)
+            'orders': Order.objects.filter(delivered=False),
+            'massege': "Orders"
         }
         if request.user.is_superuser:
             return render(request, 'home.html', context)
-    return render(request, 'home.html')
+    return HttpResponseNotFound()
 
 def details_view(request, username=None, *args, **kwargs):
     if request.POST and request.user.is_superuser:
@@ -36,7 +37,7 @@ def details_view(request, username=None, *args, **kwargs):
 
         # customer ki info edit kro
         return redirect('/admin/home/')
-    elif request.user.is_authenticated and (request.user.is_superuser or request.user.username == username):
+    elif request.user.is_authenticated and (request.user.is_superuser or request.user.username == username or request.user.is_employee):
         instance = get_object_or_404(Person, username=username)
         if instance.is_customer:
             instance = get_object_or_404(Customer, username=username)
@@ -48,28 +49,30 @@ def details_view(request, username=None, *args, **kwargs):
 
 
 def list_view(request):
-    if request.user.is_authenticated and request.user.is_superuser:
-        user = Customer.objects.filter(is_approved=True)
+    if request.user.is_authenticated and (request.user.is_superuser or request.user.is_employee):
+        user = Customer.objects.filter(is_approved=True, is_employee=False, is_admin=False)
         context = {
             'users': user,
-            'admin': request.user
+            'user': request.user,
+            'massege': 'All Customers'
         }
-        return render(request, 'accounts/all-customers.html', context=context)
+        return render(request, 'accounts/customer_list.html', context=context)
     return HttpResponseNotFound()
 
 
 def account_requests(request):
     if request.POST:
         pass
-    if request.user.is_authenticated and request.user.is_superuser:
+    if request.user.is_authenticated and (request.user.is_superuser or request.user.is_employee):
         users = Person.objects.filter(is_approved=False)
         users = users.exclude(is_admin=True)
         print(users)
         context = {
             'users': users,
-            'requesting': request.user
+            'user': request.user,
+            'massege': 'Customer Requests'
         }
-        return render(request, 'accounts/requests.html', context)
+        return render(request, 'accounts/customer_list.html', context)
     return HttpResponseNotFound()
 
 

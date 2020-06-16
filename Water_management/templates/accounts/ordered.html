@@ -47,6 +47,24 @@
         <p>This order is recursive and will be delivered every week</p>
     {% endif %}
     </div>
+    {% if request.user.is_employee or request.user.is_superuser %}
+        <form method="post">{% csrf_token %}
+            {% if order.delivered %}
+                <h2>Status:</h2>
+                <div class="text-center">
+                    <p>Delivered</p>
+                </div>
+            {% else %}
+                <input type="checkbox" class="form-check-input" name="delivered">
+                <label class="form-check-label" for="exampleCheck1">Delivered</label>
+
+            {% endif %}
+        <hr>
+                <div class="text-center mt-5">
+                <input type="submit" class="btn btn-dark">
+                </div>
+        </form>
+    {% endif %}
 {% endblock %}
 </div>
 

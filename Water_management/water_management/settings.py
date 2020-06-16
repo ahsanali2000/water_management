@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'Admin',
     'customer',
+    'employee',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MIDDLEWARE = [

@@ -16,8 +16,8 @@
 
                 <ul class="navbar-nav mr-auto">
 
-                    <li class="nav-item">
-                        <a class="nav-item nav-link active"
+                    <li class="nav-item active">
+                        <a class="nav-item nav-link "
                            {% if request.user.is_customer %}
                            href='/customer/home/'
                            {% elif request.user.is_employee %}
@@ -31,19 +31,50 @@
 
                         >Home <span class="sr-only">(current)</span></a>
                     </li>
-                    {% if request.user.is_superuser %}
+                    {% if request.user.is_authenticated and request.user.is_superuser %}
                         <li class="nav-item">
                             <a class="nav-link" href="/admin/requests">Requests</a>
                         </li><li class="nav-item">
                             <a class="nav-link" href="/admin/all">All Customers</a>
                         </li>
-                    {% elif request.user.is_authenticated and not request.user.is_superuser %}
+
+                        <li class="dropdown nav-item">
+                          <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Orders
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="nav-link" href="/employee/confirmed_not_delivered_orders">Confirmed Orders</a>
+                            <a class="nav-link" href="/employee/delivered_orders">Delivered Orders</a>
+                            <a class="nav-link" href="/employee/not_confirmed">Pending Orders</a>
+                          </div>
+                        </li>
+
+
+                    {% elif request.user.is_authenticated and request.user.is_customer %}
+
                         <li class="nav-item">
                             <a class="nav-link" href="/customer/order">Order</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/customer/all-orders">My Orders</a>
                         </li>
+                    {% elif request.user.is_authenticated and request.user.is_employee %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/requests">Requests</a>
+                        </li><li class="nav-item">
+                            <a class="nav-link" href="/admin/all">All Customers</a>
+                        </li>
+                        <li class="dropdown nav-item">
+                          <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Orders
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="nav-link" href="/employee/confirmed_not_delivered_orders">Confirmed Orders</a>
+                            <a class="nav-link" href="/employee/delivered_orders">Delivered Orders</a>
+                            <a class="nav-link" href="/employee/not_confirmed">Pending Orders</a>
+                          </div>
+                        </li>
+
                     {% endif %}
                 </ul>
 
