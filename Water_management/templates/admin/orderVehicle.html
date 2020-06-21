@@ -25,7 +25,7 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-6 text-center">
+            <div class="col-md-6  text-lg-right text-md-right ">
                 <h5>Date:</h5>
             </div>
             <div class="col-md-6">
@@ -33,7 +33,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6 text-center">
+            <div class="col-md-6  text-lg-right text-md-right ">
                 <h5>Customer Name:</h5>
             </div>
             <div class="col-md-6">
@@ -41,7 +41,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6 text-center">
+            <div class="col-md-6  text-lg-right text-md-right ">
                 <h5>Customer Phone No:</h5>
             </div>
             <div class="col-md-6">
@@ -49,7 +49,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6 text-center">
+            <div class="col-md-6  text-lg-right text-md-right ">
                 <h5>Address :</h5>
             </div>
             <div class="col-md-6">
@@ -58,7 +58,7 @@
         </div>
         {% if order.area %}
             <div class="row">
-                <div class="col-md-6 text-center">
+                <div class="col-md-6  text-lg-right text-md-right ">
                     <h5>Area :</h5>
                 </div>
                 <div class="col-md-6">
@@ -68,7 +68,7 @@
         {% endif %}
         {% if order.vehicle %}
             <div class="row">
-                <div class="col-md-6 text-center">
+                <div class="col-md-6  text-lg-right text-md-right ">
                     <h5>Vehicle :</h5>
                 </div>
                 <div class="col-md-6">
@@ -77,18 +77,23 @@
             </div>
         {% endif %}
         <hr>
-        <div class="row">
+
             <form method="post" action="">
                 {% csrf_token %}
-                {% load crispy_forms_tags %}
-                {{ form.vehicle }}<br>
-                <button type="submit" class="btn btn-primary cus">Confirm</button>
+                <div class="row">
+                    <div class="col-2"></div>
+                        <div class="col-8 text-center">
+                        {% load crispy_forms_tags %}
+                        {{ form.vehicle }}<br>
+                        <button type="submit" class="btn btn-dark mt-4 px-5">Confirm</button>
+                    </div>
+                </div>
 
 
             </form>
 
 
-        </div>
+
     </div>
     </div>
 

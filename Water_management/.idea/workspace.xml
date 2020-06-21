@@ -2,98 +2,36 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="461b0a9e-2094-4b1b-a4d3-d4aa22a48dbd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Admin/templatetags/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Admin/templatetags/app_filters.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/customer/forms.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/0002_auto_20200620_1805.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/0003_employee_receivedbottle.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/0004_order_delivered_by.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin/all-customers.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin/allArea.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin/allCities.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin/allEmployee.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin/allProducts.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin/allVehicle.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin/approveCustomer.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin/editEmployee.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin/editVehicle.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin/home.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin/newArea.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin/newCity.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin/newEmployee.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin/newProduct.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin/newVehicle.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin/orderVehicle.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin/orders.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin/profile.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin/records.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin/requests.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin/schedule.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin/selectArea.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin/selectVehicle.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin/updateSchedule.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/change_password.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/customer/home.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/customer/ordered.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/customer/profile.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/employee/areawise_orders.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/employee/home.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/employee/order_delivery_details.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/employee/ordered.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/employee/profile.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/employee/schedule.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/employee/selectVehicle.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Admin/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/Admin/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Admin/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Admin/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Admin/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Admin/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/customer/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/customer/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/customer/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/customer/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/0002_person_is_available.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/0003_auto_20200613_2342.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/0004_auto_20200613_2359.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/0005_person_is_employee.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/0006_auto_20200614_0036.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/0007_auto_20200614_0048.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/0008_order_quantity.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/0009_order_product.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/0010_auto_20200614_0148.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/0011_remove_order_product.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/0012_order_address.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/0013_auto_20200614_1626.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/0014_auto_20200614_1629.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/0015_auto_20200614_1725.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/0016_auto_20200614_1920.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/0017_auto_20200615_0816.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/0018_order_confirmed.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/employee/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/employee/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/employee/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/employee/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/Lib/site-packages/django/contrib/auth/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/env/Lib/site-packages/django/contrib/auth/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/accounts/approval.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/accounts/approval.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/accounts/customer_list.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/accounts/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/accounts/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/accounts/ordered.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/accounts/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/accounts/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/accounts/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/accounts/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/checking.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/checking.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/components/footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/footer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/components/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/header.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/customer/confirm_order.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/customer/confirm_order.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/customer/order_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/customer/order_form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/customer/view_orders.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/customer/view_orders.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/all-customers.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/all-customers.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/allArea.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/allArea.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/allCities.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/allCities.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/allEmployee.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/allEmployee.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/allProducts.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/allProducts.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/allVehicle.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/allVehicle.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/approveCustomer.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/approveCustomer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/editEmployee.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/editEmployee.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/editVehicle.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/editVehicle.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/newArea.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/newArea.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/newCity.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/newCity.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/newProduct.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/newProduct.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/newVehicle.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/newVehicle.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/orderVehicle.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/orderVehicle.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/orders.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/orders.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/records.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/records.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/requests.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/requests.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/schedule.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/schedule.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/selectArea.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/selectArea.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/selectVehicle.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/selectVehicle.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/updateSchedule.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/updateSchedule.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/employee/areawise_orders.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/employee/areawise_orders.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/employee/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/employee/home.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/employee/order_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/employee/order_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/water_management/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/water_management/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/water_management/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/water_management/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/employee/schedule.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/employee/schedule.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/employee/selectVehicle.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/employee/selectVehicle.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -242,6 +180,8 @@
       <workItem from="1592314759366" duration="11832000" />
       <workItem from="1592399545686" duration="98068000" />
       <workItem from="1592687578434" duration="6928000" />
+      <workItem from="1592718748888" duration="1046000" />
+      <workItem from="1592741430027" duration="2844000" />
     </task>
     <task id="LOCAL-00001" summary="View profile of customer as well">
       <created>1592072950513</created>
@@ -272,7 +212,8 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="View profile of customer as well" />
-    <option name="LAST_COMMIT_MESSAGE" value="View profile of customer as well" />
+    <MESSAGE value="Customer and employee frontend done" />
+    <option name="LAST_COMMIT_MESSAGE" value="Customer and employee frontend done" />
   </component>
   <component name="WindowStateProjectService">
     <state x="137" y="20" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1592009974308">
