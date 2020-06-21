@@ -14,7 +14,7 @@ class CustomerRegisterForm(forms.ModelForm):
             'PhoneNo': 'Phone Number',
         }
         widgets = {
-            'password': forms.PasswordInput
+            'password': forms.PasswordInput,
         }
         fields = [
             'name',
@@ -24,9 +24,7 @@ class CustomerRegisterForm(forms.ModelForm):
             'is_customer',
             'password',
             'PhoneNo',
-            'MonthlyBill',
-            'NoOfBottles',
-            'AmountDue'
+            'address'
         ]
 
     def clean_confirm_pass(self):

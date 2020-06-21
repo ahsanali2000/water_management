@@ -2,140 +2,118 @@ from django.http import HttpResponseNotFound
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from database.models import Products, Order, Customer
 from ast import literal_eval
+from .forms import OrderForm, OrderQuantityForm
+from Admin.views import string_to_list, form_to_string
+
+order = None
+
 
 def home(request):
+    context = {
+        'user': Customer.objects.get(username=request.user.username),
+        'orders': Order.objects.filter(customer=request.user, delivered=False)
+    }
     if request.user.is_authenticated:
-        context = {
-            'user': request.user,
-            'orders': Order.objects.filter(customer=request.user, delivered=False),
-            'massege': "My orders"
-        }
-        if request.user.is_customer:
-            return render(request, 'home.html', context)
-    return HttpResponseNotFound()
-
+        return render(request, 'customer/home.html', context)
+    else:
+        return render(request, 'home.html')
 
 
 def view_order(request, order_id):
-    order_show = Order.objects.filter(id=order_id).first()
-    user_ordered = order_show.customer
-
-
-    if request.POST and ( request.user.is_superuser or request.user.is_employee):
-        delivered= request.POST.get('delivered')
-        if delivered:
-            order_show.delivered=True
-            order_show.save()
-        return redirect("/employee/delivered_orders")
-
-    elif request.user.is_authenticated and (request.user.is_superuser or request.user.username == user_ordered.username or request.user.is_employee):
-        instance = get_object_or_404(Order, id=order_id)
-        address = order_show.address
-        frequency = order_show.frequency
-        desc = order_show.desc
-
-        splitted = desc.split(',')
-        name_list = []
-        quan_list = []
-        all_list = []
-        for pro in splitted:
-            further = pro.split(':')  # at ita zeroth index we have product code and at 1st index we have product quantity
-            if further[0] != '':
-                quan_list.append(further[1])
-        product_name = Products.objects.all()
-        for a in product_name:
-            name_list.append(a.name)
-        counter1 = 0
-        counter2 = 0
-        counter = 1
-        for ele in range(2 * len(quan_list)):
-            if counter % 2 != 0:
-                all_list.append(name_list[counter1])
-                counter1 = counter1 + 1
-            else:
-                all_list.append(quan_list[counter2])
-                counter2 = counter2 + 1
-            counter = counter + 1
-        context = {
-            'all_list': all_list,
-            'address': address,
-            'frequency': int(frequency),
-            'user': user_ordered,
-            'order':order_show,
-        }
-        return render(request, 'accounts/ordered.html', context=context)
+    if request.user.is_authenticated and not request.user.is_superuser:
+        order = Order.objects.get(id=order_id)
+        customer = order.customer
+        data = {'order': order, 'quantity': get_product_quantity_map(order.desc), 'customer': customer}
+        return render(request, 'customer/ordered.html', data)
 
     return HttpResponseNotFound()
 
 
 def my_orders(request):
-    if request.user.is_authenticated and not request.user.is_superuser and request.user.is_customer:
-        orders = Order.objects.filter(customer=request.user)
+    if request.user.is_authenticated and not request.user.is_superuser:
+        orders = Order.objects.filter(customer=request.user).order_by('-ordered_at')
         context = {
-            'orders': orders
+            'orders': orders,
+            'user': Customer.objects.get(username=request.user.username)
         }
         return render(request, 'customer/view_orders.html', context=context)
-    return HttpResponseNotFound()
-def order_confirmed(request):
-    if request.POST and request.user.is_authenticated and request.user.is_customer:
-        order_str=request.POST.get("order")
-        order_dict = literal_eval(order_str)
-        desc= order_dict['desc']
-        address= order_dict['address']
-        frequency= order_dict['frequency']
-        customer= Customer.objects.filter(username=order_dict['customer']).first()
 
-        order= Order.objects.create(desc=desc, address=address,frequency=frequency, customer=customer)
-        return redirect(order.get_url())
+
+def order_confirmed(request):
+    if request.POST and request.user.is_authenticated:
+        global order
+        order.save()
+        print(order)
+        order = None
+        return redirect('customer_home')
     return HttpResponseNotFound()
 
 
 def order(request):
-    if request.user.is_authenticated and not request.user.is_superuser and request.user.is_customer:
-        context = {
-            'products': Products.objects.all(),
-        }
+    if request.user.is_authenticated and not request.user.is_superuser:
         if request.POST:
-            product = Products.objects.all()
-            list_ordered = []
-            flag=0
-            for pro in product:
-                if request.POST.get(f'{pro.code}')!='' and request.POST.get(f'{pro.code}')!='0':
-                    flag=1
-            if flag==0:
-                context['error']='Kindly add at least one item to order'
-                return render(request, 'customer/order_form.html', context=context)
-
-
-            for pro in product:
-                quantity = request.POST.get(f'{pro.code}')
-                list_ordered.append( f'{pro.name} : {quantity},')
-
-
-            desc = ''
-            for pro in product:
-                quantity = request.POST.get(f'{pro.code}')
-                desc = desc + f'{pro.code}:{quantity},'
-
-            address = request.POST.get('address')
-            if not address:
-                address = request.user.address
-            username = request.user.username
-            user = Customer.objects.filter(username=username).first()
-
-            frequency = request.POST.get('selected')
-            order_dict={'frequency':frequency, 'customer':str(user), 'desc':desc, 'address':address}
-
-
-            context={
-                'order':order_dict,
-                'list' : list_ordered,
-                'address' : address
-            }
-            return render(request,'customer/confirm_order.html', context=context)
-            # order = Order.objects.create(frequency=frequency, customer=user, desc=desc, address=address)
-            # url = order.get_url()
-            # return redirect(url)
-
-        return render(request, 'customer/order_form.html', context=context)
+            global order
+            orderForm = OrderForm(request.POST)
+            customer = Customer.objects.get(username=request.user.username)
+            quantityForm = OrderQuantityForm(request.POST)
+            if orderForm.is_valid() and quantityForm.is_valid():
+                quantity = form_to_string(quantityForm)
+                if not has_quantity(quantity):
+                    return render(request, 'customer/order_form.html',
+                                  {'message': 'Invalid Data or Empty order!', 'order_form': OrderForm(),
+                                   'quantity_form': OrderQuantityForm()})
+                price = get_price(quantity, customer)
+                order = Order(desc=quantity, customer=customer, frequency=orderForm.cleaned_data['order_type'],
+                              address=orderForm.cleaned_data['address'] if orderForm.cleaned_data[
+                                  'address'] else customer.address, price=price)
+                data = {'order': order, 'quantity': get_product_quantity_map(order.desc), 'customer': customer,
+                        'price': price}
+                return render(request, 'customer/confirm_order.html', data)
+            return render(request, 'customer/order_form.html',
+                          {'message': 'Please retry!', 'order_form': OrderForm(), 'quantity_form': OrderQuantityForm()})
+        return render(request, 'customer/order_form.html',
+                      {'order_form': OrderForm(), 'quantity_form': OrderQuantityForm()})
     return HttpResponse(status=404)
+
+
+def get_price(description, customer):
+    prices = string_to_list(customer.discounted_price)
+    products = string_to_list(description)
+    net_price = 0
+    for product in products:
+        for price in prices:
+            if product[0] == price[0]:
+                net_price += int(price[1]) * int(product[1])
+                break
+    return net_price
+
+
+def get_product_quantity_map(description):
+    product_list = string_to_list(description)
+    products = Products.objects.all()
+    for product_in_order in product_list:
+        for product in products:
+            if product_in_order[0] == product.code:
+                product_in_order[0] = product.name
+                break
+    return product_list
+
+
+def has_quantity(description):
+    products = string_to_list(description)
+    valid = False
+    for product in products:
+        if int(product[1]) < 0:
+            return False
+        if int(product[1]) > 0:
+            valid = True
+    return valid
+
+
+def profile(request):
+    if request.user.is_authenticated:
+        customer = Customer.objects.get(username=request.user.username)
+        if customer:
+            data = {'user': customer}
+            return render(request, 'customer/profile.html', data)
+    return HttpResponseNotFound()

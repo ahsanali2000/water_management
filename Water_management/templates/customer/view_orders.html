@@ -1,57 +1,89 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
 {% block title %}
-<title>Orders</title>
+    <title>All Customers</title>
 {% endblock %}
-
 
 {% block header %}
-{% include 'components/header.html' %}
+    {% include 'components/header.html' %}
 {% endblock %}
-
 
 {% block content %}
 
-    <div class="container">
-    <div class="row">
-        <div class="col-3">
-            <div class="text-center ">
-                <a href = '{{ request.user.get_url }}' style="color: black;font-size: 2rem" >{{user.name}} </a>
+    {% if user.is_authenticated %}
+        <div class="container">
+        <div class="row">
+        <div class="col-3 d-sm-none d-md-block">
+            <div class="text-center">
+                <h3>Your Profile</h3><hr>
             </div>
-            <p>Username:&nbsp;&nbsp;{{user.username}} </p>
-            <p>email:&nbsp;&nbsp;{{user.email}} </p>
-            <p>CNIC:&nbsp;&nbsp;{{user.cnic}} </p>
-            <p>Phone Number:&nbsp;&nbsp;{{user.PhoneNo}} </p>
+            <div class="card">
+              <div class="text-center card-header">
+                <a  style="color: black;font-size: 1.3rem" >{{user.name}} </a>
+            </div>
+              <div class="card-body">
 
-        </div>
-        <div class="col-9 text-center ">
-            {% for order in orders %}
-                <div class="card">
-                  <h5 class="card-header">Order Id: {{ order.id }}</h5>
-                  <div class="card-body">
-                    <h5 class="card-title">Order Date/Time: {{ order.ordered_at }}</h5>
-                      {% if order.delivered %}
-                        <h5 class="card-title">Status: Delivered</h5>
-                      {% elif  order.confirmed %}
-                        <h5 class="card-title">Status: Confirmed by admin</h5>
-                    {% else %}
-                        <h5 class="card-title">Status: Not confirmed by admin</h5>
-                    {% endif %}
-                    <a href="{{ order.get_url }}" class="btn btn-primary">View Details</a>
+            <p class="card-text">No of Bottles:&nbsp;&nbsp;{{user.NoOfBottles}} </p>
+            <p class="card-text">Monthly Bill:&nbsp;&nbsp;{{user.MonthlyBill}} </p>
+            <p class="card-text">Amount Due:&nbsp;&nbsp;{{user.AmountDue}} </p>
+
+
+                  <div class="text-center card-header bg-transparent">
+                <a href = '{% url 'customer_profile' %}'   class="btn btn-dark">View Profile</a>
                   </div>
+              </div>
+            </div>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-12 ">
+                    {% if request.user.is_authenticated %}
+                        <div class="text-center">
+                            <h3>Order List</h3>
+                            <hr>
+                        </div>
+
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">Date</th>
+                                <th scope="col">Time</th>
+                                <th scope="col">Status</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for order in orders %}
+                                <tr>
+                                    <td><a href="{{ order.get_url_customer }}">
+                                        <h5>{{ order.ordered_at.date }}</h5></a>
+                                    </td>
+                                    <td>{{ order.ordered_at.time }}</td>
+                                    {% if order.confirmed %}
+                                        <td>Your order has been confirmed by admin</td>
+                                    {% elif order.delivered %}
+                                        <td>This order was delivered on {{ order.delivered_at }}</td>
+                                    {% else %}
+                                        <td>Your order has not been confirmed by admin</td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+
+                    {% endif %}
                 </div>
-            {% endfor %}
+            </div>
         </div>
-        </div>
-    </div>
+
+
+    {% endif %}
 
 {% endblock %}
 
 {% block footer %}
-{% include 'components/footer.html' %}
+    {% include 'components/footer.html' %}
 {% endblock %}
 
-</body>
-</html>
+
+

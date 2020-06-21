@@ -2,29 +2,96 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="461b0a9e-2094-4b1b-a4d3-d4aa22a48dbd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/employee/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/employee/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/employee/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/employee/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/employee/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/employee/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/employee/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/employee/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/employee/order_list.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Admin/templatetags/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Admin/templatetags/app_filters.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/customer/forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/0002_auto_20200620_1805.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/0003_employee_receivedbottle.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/0004_order_delivered_by.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/all-customers.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/allArea.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/allCities.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/allEmployee.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/allProducts.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/allVehicle.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/approveCustomer.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/editEmployee.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/editVehicle.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/home.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/newArea.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/newCity.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/newEmployee.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/newProduct.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/newVehicle.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/orderVehicle.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/orders.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/profile.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/records.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/requests.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/schedule.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/selectArea.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/selectVehicle.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/updateSchedule.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/change_password.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/customer/home.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/customer/ordered.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/customer/profile.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/employee/areawise_orders.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/employee/home.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/employee/order_delivery_details.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/employee/ordered.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/employee/profile.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/employee/schedule.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/employee/selectVehicle.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Admin/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/Admin/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Admin/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Admin/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Admin/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Admin/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/customer/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/customer/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/customer/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/customer/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/0002_person_is_available.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/0003_auto_20200613_2342.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/0004_auto_20200613_2359.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/0005_person_is_employee.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/0006_auto_20200614_0036.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/0007_auto_20200614_0048.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/0008_order_quantity.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/0009_order_product.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/0010_auto_20200614_0148.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/0011_remove_order_product.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/0012_order_address.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/0013_auto_20200614_1626.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/0014_auto_20200614_1629.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/0015_auto_20200614_1725.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/0016_auto_20200614_1920.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/0017_auto_20200615_0816.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/0018_order_confirmed.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/employee/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/employee/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/employee/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/employee/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/env/Lib/site-packages/django/contrib/auth/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/env/Lib/site-packages/django/contrib/auth/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/accounts/all-customers.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/accounts/customer_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/accounts/ordered.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/accounts/ordered.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/accounts/approval.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/accounts/approval.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/accounts/customer_list.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/accounts/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/accounts/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/accounts/ordered.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/accounts/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/accounts/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/accounts/requests.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/change_password.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/edit_profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/accounts/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/accounts/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/checking.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/checking.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/footer.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/components/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/header.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/customer/confirm_order.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/customer/confirm_order.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/customer/order_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/customer/order_form.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/customer/view_orders.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/customer/view_orders.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/employee/order_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/employee/order_list.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/water_management/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/water_management/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/water_management/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/water_management/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/water_management/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/water_management/views.py" afterDir="false" />
     </list>
@@ -85,18 +152,22 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/employee" />
-    <property name="settings.editor.selected.configurable" value="Errors" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates/employee" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Ahsan Ali\Desktop\Water Project\Water_management\employee" />
-      <recent name="C:\Users\Ahsan Ali\Desktop\Water Project\Water_management\templates\customer" />
-      <recent name="C:\Users\Ahsan Ali\Desktop\Water Project\Water_management\customer" />
-      <recent name="C:\Users\Ahsan Ali\Desktop\Water Project\Water_management\accounts" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\muham\OneDrive\Desktop\Water_management\Admin" />
+      <recent name="C:\Users\muham\OneDrive\Desktop\Water_management\water_management" />
+      <recent name="C:\Users\muham\OneDrive\Desktop\Water_management\templates\customer" />
       <recent name="C:\Users\Ahsan Ali\Desktop\Water Project\Water_management\templates\accounts" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\muham\OneDrive\Desktop\Water_management\templates\employee" />
+      <recent name="C:\Users\muham\OneDrive\Desktop\Water_management\templates" />
+      <recent name="C:\Users\muham\OneDrive\Desktop\Water_management" />
+      <recent name="C:\Users\muham\OneDrive\Desktop\Water_management\templates\customer" />
+      <recent name="C:\Users\muham\OneDrive\Desktop\Water_management\static\js" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -163,8 +234,14 @@
       <workItem from="1592139045880" duration="252000" />
       <workItem from="1592139310960" duration="16202000" />
       <workItem from="1592211801183" duration="21410000" />
-      <workItem from="1592255006656" duration="6875000" />
-      <workItem from="1592293299382" duration="11130000" />
+      <workItem from="1592246490838" duration="1224000" />
+      <workItem from="1592283791428" duration="411000" />
+      <workItem from="1592284243659" duration="17032000" />
+      <workItem from="1592311873308" duration="694000" />
+      <workItem from="1592314591254" duration="151000" />
+      <workItem from="1592314759366" duration="11832000" />
+      <workItem from="1592399545686" duration="98068000" />
+      <workItem from="1592687578434" duration="6928000" />
     </task>
     <task id="LOCAL-00001" summary="View profile of customer as well">
       <created>1592072950513</created>
@@ -202,34 +279,42 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="137" y="20" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1592009974308" />
-    <state x="413" y="112" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1592010243246">
+    <state x="413" y="112" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1592662527831">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="413" y="112" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728@0.0.1366.728" timestamp="1592010243246" />
+    <state x="413" y="112" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728@0.0.1366.728" timestamp="1592662527831" />
     <state x="402" y="0" key="#water_management" timestamp="1592007290080">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="402" y="0" key="#water_management/0.0.1366.728@0.0.1366.728" timestamp="1592007290080" />
-    <state width="1323" height="399" key="GridCell.Tab.0.bottom" timestamp="1592054619224">
+    <state x="463" y="120" key="FileChooserDialogImpl" timestamp="1592642081305">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="399" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1592054619224" />
-    <state width="1323" height="399" key="GridCell.Tab.0.center" timestamp="1592054619223">
+    <state x="463" y="120" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1592642081305" />
+    <state width="1323" height="7" key="GridCell.Tab.0.bottom" timestamp="1592684496396">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="399" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1592054619223" />
-    <state width="1323" height="399" key="GridCell.Tab.0.left" timestamp="1592054619223">
+    <state width="1323" height="7" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1592684496396" />
+    <state width="1323" height="7" key="GridCell.Tab.0.center" timestamp="1592684496395">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="399" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1592054619223" />
-    <state width="1323" height="399" key="GridCell.Tab.0.right" timestamp="1592054619223">
+    <state width="1323" height="7" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1592684496395" />
+    <state width="1323" height="7" key="GridCell.Tab.0.left" timestamp="1592684496395">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="399" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1592054619223" />
-    <state x="184" y="7" key="SettingsEditor" timestamp="1592189342203">
+    <state width="1323" height="7" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1592684496395" />
+    <state width="1323" height="7" key="GridCell.Tab.0.right" timestamp="1592684496395">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="184" y="7" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1592189342203" />
+    <state width="1323" height="7" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1592684496395" />
+    <state x="184" y="7" key="SettingsEditor" timestamp="1592314719885">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="184" y="7" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1592314719885" />
+    <state x="379" y="189" key="com.intellij.ide.util.TipDialog" timestamp="1592311910650">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="379" y="189" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1592311910650" />
     <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1592187957769">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

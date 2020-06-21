@@ -18,18 +18,18 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 from django.urls import include
-from .views import home, check,edit_profile
+from .views import *
 
 urlpatterns = [
     path('', admin.site.urls),
     path('auth/', include('accounts.urls')),
     path('admin/', include('Admin.urls')),
     path('customer/', include('customer.urls')),
-    path('employee/', include('employee.urls')),
 
     path('edit_profile/', edit_profile),
     path('home/', home, name='home'),
     path('check/', check),
+    path('employee/', include('employee.urls')),
 ]
 if settings.DEBUG:
     urlpatterns = urlpatterns + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

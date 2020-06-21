@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Confirmed Orders</title>
+{% endblock %}
+
+
+{% block header %}
+{% include 'components/header.html' %}
+{% endblock %}
+
+{% block content %}
+    <div class="text-center">
+        <h1>Enter Details</h1>
+    {% if messages %}
+
+            <div class="alert alert-danger text-center">
+                <h4>{{ messages }}</h4>
+            </div>
+
+    {% endif %}
+    </div><hr>
+<form method="post" action="">{% csrf_token %}
+  <table class="table my-5">
+          <thead>
+            <tr >
+              <th scope="col" style="width: 50%" class=" border-0 text-right">Amount Recieved</th>
+              <td scope="col" class=" border-0 text-left"><input type="number"  required onkeypress="return event.charCode >= 48" min="0" value="0" name="amount_received"></td>
+            </tr>
+            <tr >
+              <th scope="col" style="width: 50%" class=" border-0 text-right">19 Litre Bottles Given</th>
+              <td scope="col" class=" border-0 text-left"><input type="number" required onkeypress="return event.charCode >= 48" min="0" value="0" name="bottles_given"></td>
+            </tr>
+            <tr >
+              <th scope="col " style="width: 50%" class=" border-0 text-right">19 Litre Bottles Received</th>
+              <td scope="col" class=" border-0 text-left"><input type="number" required value="0" onkeypress="return event.charCode >= 48" min="0" name="bottles_received"></td>
+            </tr>
+          </thead>
+
+        </table>
+    <hr>
+<div class="text-center py-5">
+    <input type="submit" class="btn btn-dark">
+</div>
+    </form>
+
+{% endblock %}
+
+{% block footer %}
+{% include 'components/footer.html' %}
+{% endblock %}

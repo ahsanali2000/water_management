@@ -1,7 +1,84 @@
-<footer class=" panel-footer bg-dark pt-4 mt-5 ">
-    <p class="text-center pb-4" style="color: white">© 2020 Copyright:
-          <a >
-            <strong> ASA</strong>
+<!-- Footer -->
+<footer class="page-footer font-small bg-dark text-white mdb-color pt-4 mt-5">
+
+  <!-- Footer Links -->
+  <div class="container text-center text-md-left">
+
+    <!-- Footer links -->
+    <div class="row text-center text-md-left mt-3 pb-3">
+
+      <!-- Grid column -->
+      <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+        <h6 class="text-uppercase mb-4 font-weight-bold">Company name</h6>
+        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem  inventore veritatis et quasi architecto beatae
+            vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit..</p>
+      </div>
+      <!-- Grid column -->
+
+      <hr class="w-100 clearfix d-md-none">
+
+      <!-- Grid column -->
+
+      <hr class="w-100 clearfix d-md-none">
+
+      <!-- Grid column -->
+      <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+        <h6 class="text-uppercase mb-4 font-weight-bold">Useful links</h6>
+        <p>
+          <a href="{% if request.user.is_superuser %}
+                     /admin/profile
+                  {% elif request.user.is_employee %}
+                     /employee/profile
+                  {% elif request.user.is_customer %}
+                     /customer/profile
+                  {% endif %}"
+            >Your Account</a>
+        </p>
+        <p>
+          <a href="#!">What's New</a>
+        </p>
+        <p>
+          <a href="#!">About Us</a>
+        </p>
+        <p>
+          <a href="#!">Contact Us</a>
+        </p>
+      </div>
+
+      <!-- Grid column -->
+      <hr class="w-100 clearfix d-md-none">
+
+      <!-- Grid column -->
+      <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+        <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
+        <p>
+          <i class="fas fa-home mr-3"></i> H-12</p>
+        <p>
+          <i class="fas fa-envelope mr-3"></i> ahsan@gmail.com</p>
+        <p>
+          <i class="fas fa-phone mr-3"></i> +92 320 11111111</p>
+        <p>
+          <i class="fas fa-print mr-3"></i> +92 320 11111111</p>
+      </div>
+    </div>
+
+
+    <hr>
+
+
+    <div class="row d-flex  align-items-center">
+
+      <div class="col text-center">
+
+
+        <p>© 2020 Copyright:
+          <a href="#">
+            <strong>ASA</strong>
           </a>
-    </p>
+        </p>
+
+      </div>
+    </div>
+  </div>
+
 </footer>

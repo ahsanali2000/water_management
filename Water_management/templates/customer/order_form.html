@@ -2,54 +2,53 @@
 {% load static %}
 
 {% block title %}
-<title>Order</title>
+    <title>Order</title>
 {% endblock %}
 
 
 {% block header %}
-{% include 'components/header.html' %}
+    {% include 'components/header.html' %}
 {% endblock %}
 
 {% block content %}
     <div class="container">
-    <form method="post">{% csrf_token %}
-    <div>
-
-      {% for product in products %}
-      <div class="form-row">
-        <div class="form-group col-md-6 mx-auto">
-          <label for="inputZip">Quantity of {{product.name}}s:</label>
-          <input type="number" value=0 onkeypress="return event.charCode >= 48" min="0" class="form-control" name="{{product.code}}">
-        </div>
-      </div>
-        {% endfor %}
-      <div class="form-row">
-        <div class="form-group col-md-6 mx-auto">
-          <label for="inputZip">Address(Leave Blank to get on your default address):</label>
-          <input type="text" class="form-control" name="address">
-        </div>
-      </div>
+    {% if message %}
+    <div class="alert alert-danger text-center">
+        <h4>{{ message }}</h4>
     </div>
+    {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            {% load crispy_forms_tags %}
 
-    <div class="row">
-    <div class="col-3">
-    </div>
-      <div class="form-group">
-        <div class="check-box">
-          &nbsp&nbsp<input type="radio" name='selected' checked value="1">&nbspOnly Once<br>
-          &nbsp&nbsp<input type="radio" name="selected" value="2">&nbspEvery Week<br>
+            <div class="container ">
+                {% for fields in quantity_form %}
+
+                 <div class="row">
+                     <div class="col-2"></div>
+                    <div class="col-8">
+                        {{ fields|as_crispy_field }}
+                    </div>
+                 </div>
+                {% endfor %}
+            </div>
+        <div class="container">
+
+                {% for fields in order_form %}
+                <div class="row">
+                    <div class="col-lg-2"></div>
+                    <div class="col-8">
+                        {{ fields|as_crispy_field }}
+                    </div>
+                </div>
+                {% endfor %}
+        <div class="text-center">
+            <button type="submit" class="btn px-5 btn-dark">Order</button>
         </div>
-      </div>
         </div>
 
-    <div class="text-center">
-        {% if error %}
-        <p class="text-danger">{{ error }}</p>
-        {% endif %}
-      <button type="submit" class="btn btn-dark">Order</button>
+        </form>
     </div>
-    </form>
-</div>
 
 
 
@@ -58,5 +57,5 @@
 
 
 {% block footer %}
-{% include 'components/footer.html' %}
+    {% include 'components/footer.html' %}
 {% endblock %}
