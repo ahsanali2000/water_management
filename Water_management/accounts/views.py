@@ -2,10 +2,11 @@ from django.http import HttpResponseNotFound
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 
+from database.models import Area,Person
 from .forms import CustomerRegisterForm
 
-from django.conf import settings
 
+from django.conf import settings
 base_dir = settings.BASE_DIR
 
 
@@ -22,15 +23,21 @@ def register_user(request):
         if request.POST:
             form = CustomerRegisterForm(request.POST)
             form.ConfirmPassword = request.POST.get('ConfirmPassword')
-            print('view clean')
+            selected_area = request.POST.get('selected_area')
+            selected_area=Area.objects.get(id=int(selected_area))
             if form.is_valid():
-
                 form.save()
+                username=form.cleaned_data.get('username')
+                user= Person.objects.get(username=username)
+                user.area=selected_area
+                user.save()
                 return render(request, 'accounts/approval.html')
             else:
                 context['form'] = form
+                context['areas'] = Area.objects.all()
         else:
             context['form'] = CustomerRegisterForm
+            context['areas'] = Area.objects.all()
         return render(request, 'accounts/register.html', context)
 
 

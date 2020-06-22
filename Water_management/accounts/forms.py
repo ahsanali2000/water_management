@@ -28,11 +28,8 @@ class CustomerRegisterForm(forms.ModelForm):
         ]
 
     def clean_confirm_pass(self):
-        print('im running')
         password1 = self.cleaned_data.get("password")
         password2 = self.cleaned_data.get("confirm_pass")
-        print(password2)
-        print(self.cleaned_data)
         if password1 != password2:
             raise forms.ValidationError("Passwords don't match")
         return password2

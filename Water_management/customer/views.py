@@ -1,6 +1,6 @@
 from django.http import HttpResponseNotFound
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
-from database.models import Products, Order, Customer
+from database.models import Products, Order, Customer, Area
 from ast import literal_eval
 from .forms import OrderForm, OrderQuantityForm
 from Admin.views import string_to_list, form_to_string
@@ -50,10 +50,11 @@ def order_confirmed(request):
 
 
 def order(request):
-    if request.user.is_authenticated and not request.user.is_superuser:
+    if request.user.is_authenticated and not request.user.is_superuser and not request.user.is_employee:
         if request.POST:
             global order
             orderForm = OrderForm(request.POST)
+
             customer = Customer.objects.get(username=request.user.username)
             quantityForm = OrderQuantityForm(request.POST)
             if orderForm.is_valid() and quantityForm.is_valid():
@@ -63,16 +64,30 @@ def order(request):
                                   {'message': 'Invalid Data or Empty order!', 'order_form': OrderForm(),
                                    'quantity_form': OrderQuantityForm()})
                 price = get_price(quantity, customer)
+
+
+
+                if orderForm.cleaned_data.get('address') and request.POST.get('selected_area'):
+                    address = orderForm.cleaned_data.get('address')
+                    selected_area =Area.objects.get(id=int( request.POST.get('selected_area')))
+                else:
+                    address = customer.address
+                    selected_area = customer.area
+
                 order = Order(desc=quantity, customer=customer, frequency=orderForm.cleaned_data['order_type'],
-                              address=orderForm.cleaned_data['address'] if orderForm.cleaned_data[
-                                  'address'] else customer.address, price=price)
+                              address=address, area=selected_area , price=price)
                 data = {'order': order, 'quantity': get_product_quantity_map(order.desc), 'customer': customer,
                         'price': price}
                 return render(request, 'customer/confirm_order.html', data)
             return render(request, 'customer/order_form.html',
                           {'message': 'Please retry!', 'order_form': OrderForm(), 'quantity_form': OrderQuantityForm()})
         return render(request, 'customer/order_form.html',
-                      {'order_form': OrderForm(), 'quantity_form': OrderQuantityForm()})
+                      {
+                          'order_form': OrderForm(),
+                          'quantity_form': OrderQuantityForm(),
+                          'areas'   : Area.objects.all(),
+
+                       })
     return HttpResponse(status=404)
 
 

@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import User
 from django.db import models as md
@@ -6,6 +5,25 @@ from django.urls import reverse
 from django.utils.timezone import now
 
 from accounts.models import CustomerManager, UserManager, EmployeeManager
+
+
+class City(md.Model):
+    city = md.CharField(max_length=100, null=False, blank=False, unique=True)
+
+    def __str__(self):
+        return self.city
+
+
+class Area(md.Model):
+    city = md.ForeignKey(City, on_delete=md.CASCADE)
+    name = md.CharField(max_length=100, null=False, blank=False)
+
+    class Meta:
+        unique_together = ('city', 'name',)
+
+    def __str__(self):
+        return "{}, {}".format(self.name, self.city)
+
 
 
 class Person(AbstractBaseUser):
@@ -24,6 +42,7 @@ class Person(AbstractBaseUser):
     is_employee = md.BooleanField(default=False)
     created_at = md.DateTimeField(auto_now_add=True)
     updated_at = md.DateTimeField(auto_now=True)
+    area = md.ForeignKey(Area,on_delete=md.CASCADE, null=True, blank=True)
     address = md.CharField(max_length=120, null=True, blank=True)
 
     USERNAME_FIELD = 'username'
@@ -56,7 +75,7 @@ class Person(AbstractBaseUser):
         self._is_staff = value
 
     def __str__(self):
-        return self.name
+        return self.name + '---------' + self.username
 
 
 class Employee(Person):
@@ -73,7 +92,7 @@ class Customer(Person):
     AmountDue = md.IntegerField(default=0, null=True, blank=True)
     MonthlyBill = md.IntegerField(default=0, null=True, blank=True)
     discounted_price = md.CharField(max_length=100, null=True, blank=True)
-
+    assets = md.CharField(max_length=100, null=True, blank=True)
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['name']
     objects = CustomerManager()
@@ -119,23 +138,6 @@ class Order(md.Model):
         return reverse('order_customer', kwargs={'order_id': self.id})
 
 
-class City(md.Model):
-    city = md.CharField(max_length=100, null=False, blank=False, unique=True)
-
-    def __str__(self):
-        return self.city
-
-
-class Area(md.Model):
-    city = md.ForeignKey(City, on_delete=md.CASCADE)
-    name = md.CharField(max_length=100, null=False, blank=False)
-
-    class Meta:
-        unique_together = ('city', 'name',)
-
-    def __str__(self):
-        return "{}, {}".format(self.name, self.city)
-
 
 class Schedule(md.Model):
     day_choices = [('Monday', 'Monday'), ('Tuesday', 'Tuesday'), ('Wednesday', 'Wednesday'),
@@ -150,3 +152,9 @@ class Schedule(md.Model):
 
     def __str__(self):
         return "{}, {}".format(self.day, self.vehicle)
+
+class Asset(md.Model):
+    name = md.CharField(max_length=50)
+    total_amount = md.IntegerField()
+    desc = md.TextField()
+    code = md.CharField(max_length=2, primary_key=True)

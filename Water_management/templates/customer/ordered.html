@@ -22,7 +22,7 @@
         <div class="col-md-6 text-lg-right text-md-right">
             <h5>Customer </h5>
         </div>
-        <div class="col-md-6 text-sm-centertext-md-left text-lg-left">
+        <div class="col-md-6 text-sm-center     text-md-left text-lg-left">
             <p>{{ customer.name }}</p>
         </div>
     </div>
@@ -30,7 +30,7 @@
         <div class="col-md-6 text-lg-right text-md-right">
             <h5>Phone No </h5>
         </div>
-        <div class="col-md-6 text-sm-centertext-md-left text-lg-left">
+        <div class="col-md-6 text-sm-center text-md-left text-lg-left">
             <p>{{ customer.PhoneNo }}</p>
         </div>
     </div>
@@ -38,8 +38,16 @@
         <div class="col-md-6 text-lg-right text-md-right">
             <h5>Address </h5>
         </div>
-        <div class="col-md-6 text-sm-centertext-md-left text-lg-left">
+        <div class="col-md-6 text-sm-center text-md-left text-lg-left">
             <p>{{ order.address }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 text-lg-right text-md-right">
+            <h5>Area:</h5>
+        </div>
+        <div class="col-md-6">
+            <p>{{ order.area.name }}, {{ order.area.city }}</p>
         </div>
     </div>
     <div class="row">

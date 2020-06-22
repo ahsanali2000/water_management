@@ -34,18 +34,40 @@
             </div>
         <div class="container">
 
-                {% for fields in order_form %}
+
+
+
+                <div class="row">
+                        <div class="col-2"> </div>
+                    <div class="col-8">
+                        <p>Select area to deliver order (don't select for your default locaton.)</p>
+                        <select class="col-12 py-2 mb-2" name="selected_area">
+                            <option value="" disabled selected>Select your Area</option>
+                          {% for area in areas %}
+                            <option value="{{area.id}}"> {{ area.name }}, {{ area.city }} </option>
+                          {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col-lg-2"></div>
                     <div class="col-8">
-                        {{ fields|as_crispy_field }}
+                        {{ order_form.address|as_crispy_field }}
                     </div>
                 </div>
-                {% endfor %}
+                <div class="row">
+                    <div class="col-lg-2"></div>
+                    <div class="col-8">
+                        {{ order_form.order_type|as_crispy_field }}
+                    </div>
+                </div>
+
+            </div>
         <div class="text-center">
             <button type="submit" class="btn px-5 btn-dark">Order</button>
         </div>
-        </div>
+
 
         </form>
     </div>

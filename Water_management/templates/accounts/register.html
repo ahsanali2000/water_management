@@ -47,6 +47,18 @@
                     {{ form.PhoneNo |as_crispy_field }}
                 </div>
             </div>
+
+        <div class="row">
+            <div class="col-12">
+                <p>Select your area from the following(If your area is not available in dropdown write your full address.)</p>
+                <select class="col-12 py-3 mb-2" name="selected_area">
+                  {% for area in areas %}
+                    <option value="{{area.id}}" >{{ area.name }}, {{ area.city }}</option>
+                  {% endfor %}
+                </select>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-12">
                 {{ form.address |as_crispy_field }}

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'Admin',
     'customer',
     'employee',
+    'inventory',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MIDDLEWARE = [
