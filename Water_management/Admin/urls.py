@@ -3,6 +3,7 @@ from .views import *
 
 urlpatterns = [
     url(r'^requests/$', account_requests),
+    url(r'^notInAreaRequests/$', not_in_area_requests),
     url(r'^all/$', list_view),
     url(r'^user/(?P<username>[ \w-]+)/$', details_view, name='details'),
     url(r'^allVehicles/$', all_vehicle, name='all_vehicle'),

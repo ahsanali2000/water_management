@@ -12,6 +12,7 @@ class CustomerRegisterForm(forms.ModelForm):
             "cnic": "CNIC",
             'email': 'Email Address',
             'PhoneNo': 'Phone Number',
+            'AverageWeekly' : 'Your estimated average consumptions of 19 Litre bottles per week'
         }
         widgets = {
             'password': forms.PasswordInput,
@@ -24,7 +25,8 @@ class CustomerRegisterForm(forms.ModelForm):
             'is_customer',
             'password',
             'PhoneNo',
-            'address'
+            'address',
+            'AverageWeekly',
         ]
 
     def clean_confirm_pass(self):

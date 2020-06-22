@@ -86,12 +86,18 @@ def list_view(request):
 
 
 def account_requests(request):
-    if request.POST:
-        pass
     if request.user.is_authenticated and request.user.is_superuser:
-        users = Person.objects.filter(is_approved=False)
-        users = users.exclude(is_admin=True)
-        users = users.exclude(is_employee=True)
+        users = Customer.objects.filter(is_approved=False, NotInArea=False)
+        context = {
+            'users': users,
+            'requesting': request.user
+        }
+        return render(request, 'admin/requests.html', context)
+    return HttpResponseNotFound()
+
+def not_in_area_requests(request):
+    if request.user.is_authenticated and request.user.is_superuser:
+        users = Customer.objects.filter(is_approved=False, NotInArea=True)
         context = {
             'users': users,
             'requesting': request.user

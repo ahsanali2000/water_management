@@ -93,6 +93,10 @@ class Customer(Person):
     MonthlyBill = md.IntegerField(default=0, null=True, blank=True)
     discounted_price = md.CharField(max_length=100, null=True, blank=True)
     assets = md.CharField(max_length=100, null=True, blank=True)
+    AverageWeekly = md.IntegerField(null=True, blank=True)
+    NotInArea = md.BooleanField(default=False)
+
+
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['name']
     objects = CustomerManager()

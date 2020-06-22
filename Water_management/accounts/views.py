@@ -2,7 +2,7 @@ from django.http import HttpResponseNotFound
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 
-from database.models import Area,Person
+from database.models import Area,Customer
 from .forms import CustomerRegisterForm
 
 
@@ -23,14 +23,13 @@ def register_user(request):
         if request.POST:
             form = CustomerRegisterForm(request.POST)
             form.ConfirmPassword = request.POST.get('ConfirmPassword')
-            selected_area = request.POST.get('selected_area')
-            selected_area=Area.objects.get(id=int(selected_area))
             if form.is_valid():
                 form.save()
-                username=form.cleaned_data.get('username')
-                user= Person.objects.get(username=username)
-                user.area=selected_area
-                user.save()
+                if 'not'==request.POST.get('selected_area'):
+                    user= Customer.objects.get(username=form.cleaned_data.get('username'))
+                    user.NotInArea=True
+                    user.save()
+                    return render(request, 'accounts/approval.html',{'user':user})
                 return render(request, 'accounts/approval.html')
             else:
                 context['form'] = form
@@ -67,7 +66,7 @@ def login_user(request):
                         if user.is_superuser:
                             return redirect('/admin/home/')
                     else:
-                        return render(request, 'accounts/approval.html')
+                        return render(request, 'accounts/approval.html',{'user': Customer.objects.get(username=user.username)})
                 else:
 
                     HttpResponseNotFound(status=404)

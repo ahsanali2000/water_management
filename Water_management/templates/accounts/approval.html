@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-<title>Approval Wait</title>\
+<title>Approval Wait</title>
 {% endblock %}
 
 
@@ -16,7 +16,11 @@
          </div>
         <div>
             <h1 style="margin-top: 20px">Contact Admin</h1>
-            <p>This account is registered and waiting for approval from admin</p>
+            {% if user.NotInArea %}
+                <p>Currently we are not serving in your area. You will be contacted as we started serving in your area.</p>
+            {% else %}
+                <p>This account is registered and waiting for approval from admin</p>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

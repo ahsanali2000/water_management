@@ -2,30 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="461b0a9e-2094-4b1b-a4d3-d4aa22a48dbd" name="Default Changelist" comment="Customer and employee frontend done">
-      <change afterPath="$PROJECT_DIR$/database/migrations/0005_person_area.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/0006_auto_20200622_1621.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inventory/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inventory/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inventory/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inventory/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inventory/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inventory/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inventory/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inventory/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/inventory/all_assets.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/0007_person_avg_weekly.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/0008_auto_20200623_0128.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/0009_auto_20200623_0129.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/0010_customer_notinarea.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Admin/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Admin/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Admin/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Admin/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/accounts/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/accounts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/customer/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/customer/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/accounts/approval.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/accounts/approval.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/accounts/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/accounts/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/customer/confirm_order.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/customer/confirm_order.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/customer/order_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/customer/order_form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/customer/ordered.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/customer/ordered.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/water_management/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/water_management/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/water_management/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/water_management/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/header.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -84,7 +74,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/inventory" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -178,6 +168,7 @@
       <workItem from="1592741430027" duration="2844000" />
       <workItem from="1592765942697" duration="5678000" />
       <workItem from="1592815511083" duration="8907000" />
+      <workItem from="1592857130837" duration="3655000" />
     </task>
     <task id="LOCAL-00001" summary="View profile of customer as well">
       <created>1592072950513</created>
