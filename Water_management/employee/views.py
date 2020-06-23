@@ -59,7 +59,7 @@ def view_order(request, order_id):
                     assets += ","
                 counter+=1
             customer=order.customer
-
+            print(assets)
             customer.assets=assets
             customer.AmountDue += (int(order.price) - amount_received)
             customer.save()

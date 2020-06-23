@@ -19,6 +19,14 @@ def home(request):
             if product_in_order[0] == product.code:
                 product_in_order[0] = product.name
                 break
+
+    for asset in product_list:
+        if int(asset[1]) ==0:
+            product_list.remove(asset)
+
+    if int(product_list[0][1])==0:
+        product_list=[]
+
     context = {
         'user': user,
         'assets':product_list,
@@ -159,6 +167,13 @@ def profile(request):
                 if product_in_order[0] == product.code:
                     product_in_order[0] = product.name
                     break
+        for asset in product_list:
+            if int(asset[1]) == 0:
+                product_list.remove(asset)
+
+        if int(product_list[0][1]) == 0:
+            product_list = []
+
         if user:
             data = {'user': user,'assets':product_list}
             return render(request, 'customer/profile.html', data)
