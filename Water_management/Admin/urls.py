@@ -1,6 +1,5 @@
 from django.conf.urls import url
 from .views import *
-
 urlpatterns = [
     url(r'^requests/$', account_requests),
     url(r'^notInAreaRequests/$', not_in_area_requests),

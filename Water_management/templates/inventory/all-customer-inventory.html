@@ -81,7 +81,7 @@
                             {% for user in users %}
                                 <tr>
                                     <td>{{ user.id }}</td>
-                                    <td><a href="{{ user.get_url }}">
+                                    <td><a href="/inventory/{{ user.username }}">
                                         <h5>{{ user.name }}</h5></a>
                                     </td>
                                     <td>{{ user.PhoneNo }}</td>

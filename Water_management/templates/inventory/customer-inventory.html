@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Inventory</title>
+{% endblock %}
+
+
+{% block header %}
+{% include 'components/header.html' %}
+{% endblock %}
+
+{% block content %}
+    <div class="text-center">
+        <h1>Customer Details</h1>
+    </div><hr>
+
+    <div class="container">
+        <div class="row ">
+            <div class="col-md-6 text-lg-right text-md-right">
+                <h5>Name :</h5>
+            </div>
+            <div class="col-md-6">
+                <p>{{ customer.name }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 text-lg-right text-md-right">
+                <h5>Username:</h5>
+            </div>
+            <div class="col-md-6">
+                <p>{{ customer.username }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 text-lg-right text-md-right">
+                <h5>Phone No :</h5>
+            </div>
+            <div class="col-md-6">
+                <p>{{ customer.PhoneNo }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 text-lg-right text-md-right">
+                <h5>Address :</h5>
+            </div>
+            <div class="col-md-6">
+                <p>{{ customer.address }}</p>
+            </div>
+        </div>
+        <hr>
+
+
+
+
+    <div class="text-center">
+        <h1>Assets</h1>
+    </div><hr>
+
+
+    <form method="post">{% csrf_token %}
+        {% for asset in assets %}
+
+            <div class="row">
+                <div class="col-md-6 text-lg-right text-md-right">
+                    <h5>{{ asset.name }}:</h5>
+                </div>
+                <div class="col-md-6">
+                    <input type="number" name="{{ asset.code }}" value="{{ asset.total_amount }}">
+                </div>
+            </div>
+
+
+        {% endfor %}
+    <hr><div class="text-center mt-5 ">
+        <input type="submit" class="btn btn-dark px-5 py-3">
+    </div>
+    </form>
+
+
+    </div>
+
+
+{% endblock %}
+
+{% block footer %}
+{% include 'components/footer.html' %}
+{% endblock %}

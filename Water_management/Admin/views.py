@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from database.models import Person, Customer, Order, City, Area, Vehicle, Schedule, Products, Employee
+from database.models import Person, Customer, Order, City, Area, Vehicle, Schedule, Products, Employee,Asset
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseNotFound
 from .forms import EmployeeCreateForm, VehicleCreateForm, AreaCreateForm, \
@@ -24,13 +24,18 @@ def home(request):
 def details_view(request, username=None, *args, **kwargs):
     if request.user.is_authenticated and request.user.is_superuser:
         customer = Customer.objects.get(username=username)
+
+
+
         if request.POST:
             customerInfoForm = CustomerApprovalForm(request.POST)
             productInfoForm = AddDiscountedPrices(request.POST)
             if customerInfoForm.is_valid() and productInfoForm.is_valid():
                 discounted_prices = form_to_string(productInfoForm)
                 customer.discounted_price = discounted_prices
-                customer.NoOfBottles = customerInfoForm.cleaned_data['NoOfBottles']
+
+                NoOfBottles = customerInfoForm.cleaned_data['NoOfBottles']
+                customer.assets=f'a1:{NoOfBottles}'
                 customer.MonthlyBill = customerInfoForm.cleaned_data['MonthlyBill']
                 status = customerInfoForm.cleaned_data['status']
                 if status == "1":
@@ -51,18 +56,36 @@ def details_view(request, username=None, *args, **kwargs):
             status = 3
         else:
             status = 1
+
+
+        if customer.assets:
+            product_list = string_to_list(customer.assets)
+            products = Asset.objects.all()
+            for product_in_order in product_list:
+                for product in products:
+                    if product_in_order[0] == product.code:
+                        product_in_order[0] = product.name
+                        break
+            NoOfBottles=product_list[0][1]
+        else:
+            product_list = []
+            NoOfBottles=0
+
+
         if customer.discounted_price:
             default_prices = {}
             for pair in string_to_list(customer.discounted_price):
                 default_prices[pair[0]] = int(pair[1])
-            data = {'info_form': CustomerApprovalForm(
-                initial={'NoOfBottles': customer.NoOfBottles, 'MonthlyBill': customer.MonthlyBill,
+
+            data = {'assets': product_list,'info_form': CustomerApprovalForm(
+
+                initial={'NoOfBottles': NoOfBottles, 'MonthlyBill': customer.MonthlyBill,
                          'status': status}), 'customer': customer, 'product_form': AddDiscountedPrices(
                 initial=default_prices
             )}
         else:
-            data = {'info_form': CustomerApprovalForm(
-                initial={'NoOfBottles': customer.NoOfBottles, 'MonthlyBill': customer.MonthlyBill,
+            data = {'assets': product_list,'info_form': CustomerApprovalForm(
+                initial={'NoOfBottles':  NoOfBottles, 'MonthlyBill': customer.MonthlyBill,
                          'status': status}), 'customer': customer, 'product_form': AddDiscountedPrices()}
         return render(request, 'admin/approveCustomer.html', data)
     return HttpResponseNotFound()
@@ -498,3 +521,4 @@ def approve_payment(request, id):
             order.save()
         return redirect('records')
     return HttpResponseNotFound()
+

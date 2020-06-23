@@ -1,6 +1,6 @@
 from django.http import HttpResponseNotFound
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
-from database.models import Products, Order, Customer, Area
+from database.models import Products, Order, Customer, Area, Asset
 from ast import literal_eval
 from .forms import OrderForm, OrderQuantityForm
 from Admin.views import string_to_list, form_to_string
@@ -9,10 +9,22 @@ order = None
 
 
 def home(request):
+    user=Customer.objects.get(username=request.user.username)
+
+
+    product_list = string_to_list(user.assets)
+    products = Asset.objects.all()
+    for product_in_order in product_list:
+        for product in products:
+            if product_in_order[0] == product.code:
+                product_in_order[0] = product.name
+                break
     context = {
-        'user': Customer.objects.get(username=request.user.username),
+        'user': user,
+        'assets':product_list,
         'orders': Order.objects.filter(customer=request.user, delivered=False)
     }
+
     if request.user.is_authenticated:
         return render(request, 'customer/home.html', context)
     else:
@@ -31,10 +43,21 @@ def view_order(request, order_id):
 
 def my_orders(request):
     if request.user.is_authenticated and not request.user.is_superuser:
+        user = Customer.objects.get(username=request.user.username)
+
+        product_list = string_to_list(user.assets)
+        products = Asset.objects.all()
+        for product_in_order in product_list:
+            for product in products:
+                if product_in_order[0] == product.code:
+                    product_in_order[0] = product.name
+                    break
+
         orders = Order.objects.filter(customer=request.user).order_by('-ordered_at')
         context = {
             'orders': orders,
-            'user': Customer.objects.get(username=request.user.username)
+            'user': user,
+            'assets':product_list
         }
         return render(request, 'customer/view_orders.html', context=context)
 
@@ -127,8 +150,16 @@ def has_quantity(description):
 
 def profile(request):
     if request.user.is_authenticated:
-        customer = Customer.objects.get(username=request.user.username)
-        if customer:
-            data = {'user': customer}
+        user = Customer.objects.get(username=request.user.username)
+
+        product_list = string_to_list(user.assets)
+        products = Asset.objects.all()
+        for product_in_order in product_list:
+            for product in products:
+                if product_in_order[0] == product.code:
+                    product_in_order[0] = product.name
+                    break
+        if user:
+            data = {'user': user,'assets':product_list}
             return render(request, 'customer/profile.html', data)
     return HttpResponseNotFound()

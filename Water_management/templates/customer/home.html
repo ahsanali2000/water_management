@@ -19,8 +19,22 @@
                 <a  style="color: black;font-size: 1.3rem" >{{user.name}} </a>
             </div>
               <div class="card-body">
+            {% for asset in assets %}
+                <div class="row">
+                  {% for items in asset %}
+                        {% if forloop.counter0 == 0 %}
+                              <div class="col-9 my-2">
+                                    <p class="card-text" >&nbsp;{{items}}: </p>
+                              </div>
+                        {% else %}
+                              <div class="col-3 my-2" >
+                                    <p class="card-text">&nbsp;{{items}} </p>
+                              </div>
+                        {% endif %}
+                  {% endfor %}
+                </div>
+            {% endfor %}
 
-            <p class="card-text">No of Bottles:&nbsp;&nbsp;{{user.NoOfBottles}} </p>
             <p class="card-text">Monthly Bill:&nbsp;&nbsp;{{user.MonthlyBill}} </p>
             <p class="card-text">Amount Due:&nbsp;&nbsp;{{user.AmountDue}} </p>
 

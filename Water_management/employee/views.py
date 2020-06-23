@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 import datetime
 from customer.views import get_product_quantity_map
-from database.models import Order, Customer, Area, Vehicle, Schedule, Employee
+from Admin.views import string_to_list
+from database.models import Order, Customer, Area, Vehicle, Schedule, Employee,Asset
 from django.http import HttpResponseNotFound
 
 
@@ -32,18 +33,41 @@ def view_order(request, order_id):
         bottles_received = int(request.POST.get('bottles_received'))
         employee = Employee.objects.get(username=request.user.username)
 
-        if int(order.customer.NoOfBottles) + bottles_given - bottles_received < 0:
+        product_list = string_to_list(order.customer.assets)
+        products = Asset.objects.all()
+        for product_in_order in product_list:
+            for product in products:
+                if product_in_order[0] == product.code:
+                    product_in_order[0] = product.code
+                    break
+        NoOfBottles = int(product_list[0][1])
+
+        if int(NoOfBottles) + bottles_given - bottles_received < 0:
             messages = "Invalid No Of bottles"
         elif int(order.customer.AmountDue) + int(order.price) - amount_received < 0:
             messages = "Invalid Payment entered!"
 
         else:
 
-            order.customer.NoOfBottles += (bottles_given - bottles_received)
-            order.customer.AmountDue += (int(order.price) - amount_received)
+            NoOfBottles += (bottles_given - bottles_received)
+            assets=""
+            product_list[0][1] = NoOfBottles
+            counter=1
+            for pair in product_list:
+                assets += str(pair[0]) + ":" + str(pair[1])
+                if counter < len(product_list):
+                    assets += ","
+                counter+=1
+            customer=order.customer
+
+            customer.assets=assets
+            customer.AmountDue += (int(order.price) - amount_received)
+            customer.save()
+
             order.delivered = True
             order.delivered_at = datetime.datetime.now()
-            order.customer.save()
+            order.save()
+
 
             employee.receivedBottle += bottles_received
             employee.receivedAmount += amount_received

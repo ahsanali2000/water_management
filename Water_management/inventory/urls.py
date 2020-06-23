@@ -1,7 +1,11 @@
 from django.conf.urls import url
-from .views import all_assets
+from .views import *
 
 urlpatterns = [
-    url(r'^all/$', all_assets, name='all_assets'),
+
+    url(r'^customer-inventory/$', customer_inventory),
+    url(r'^inventory_all/$', all_inventory),
+    url(r'^add-asset/$', add_asset),
+    url(r'^(?P<username>[ \w-]+)/$', inventory_details, name='customer-inventory'),
 
 ]

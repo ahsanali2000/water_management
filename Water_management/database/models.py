@@ -88,7 +88,6 @@ class Employee(Person):
 
 
 class Customer(Person):
-    NoOfBottles = md.IntegerField(default=0, null=True, blank=True)
     AmountDue = md.IntegerField(default=0, null=True, blank=True)
     MonthlyBill = md.IntegerField(default=0, null=True, blank=True)
     discounted_price = md.CharField(max_length=100, null=True, blank=True)

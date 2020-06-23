@@ -1,5 +1,5 @@
 from django import forms
-from database.models import Person, City, Area, Vehicle, Schedule, Customer, Order, Products, Employee
+from database.models import Person, City, Area, Vehicle, Schedule, Customer, Order, Products, Employee, Asset
 
 
 class EmployeeCreateForm(forms.ModelForm):
@@ -53,6 +53,7 @@ class VehicleCreateForm(forms.ModelForm):
 
 
 class CustomerEditForm(forms.ModelForm):
+    NoOfBottles = forms.IntegerField(label='Number of bottles')
     class Meta:
         model = Customer
         fields = ['name', 'email', 'cnic', 'PhoneNo', 'MonthlyBill', 'NoOfBottles',
@@ -163,3 +164,5 @@ class EditProductForm(forms.ModelForm):
         fields = ['name', 'price', 'description']
         labels = {'name': 'Name', 'price': 'Price', 'description': 'Description'}
         widgets = {'description': forms.Textarea()}
+
+
