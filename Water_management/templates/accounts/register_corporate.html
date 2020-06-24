@@ -73,6 +73,34 @@
             </div>
         </div>
         <hr>
+        <div class="row">
+            <div class="col-12 text-center">
+                <h3>Information of company</h3>
+            </div>
+        </div>
+        <hr>
+
+
+        <div class="row">
+            <div class="col-12">
+                {{ form.NTN |as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                {{ form.STRN |as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                {{ form.registration_number |as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                {{ form.registered_address |as_crispy_field }}
+            </div>
+        </div>
 
 
             {% for field in form %}

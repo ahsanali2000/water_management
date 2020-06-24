@@ -50,6 +50,36 @@
             </div>
         </div>
 
+
+
+
+        {% if customer.is_corporate %}
+        <div class="row">
+            <div class="col-md-6  text-lg-right text-md-right ">
+                <h5>NTN :</h5>
+            </div>
+            <div class="col-md-6">
+                <p>{{ customer.NTN }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6  text-lg-right text-md-right ">
+                <h5>STRN :</h5>
+            </div>
+            <div class="col-md-6">
+                <p>{{ customer.STRN }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6  text-lg-right text-md-right ">
+                <h5>Registered Address :</h5>
+            </div>
+            <div class="col-md-6">
+                <p>{{ customer.registered_address }}</p>
+            </div>
+        </div>
+        {% endif %}
+
         {% for asset in assets %}
                 <div class="row">
                    {% for items in asset %}

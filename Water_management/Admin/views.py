@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from database.models import Person, Customer, Order, City, Area, Vehicle, Schedule, Products, Employee,Asset
+from database.models import Person, Customer, Order, City, Area, Vehicle, Schedule, Products, Employee,Asset, Corporate
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseNotFound
 from .forms import EmployeeCreateForm, VehicleCreateForm, AreaCreateForm, \
@@ -24,6 +24,8 @@ def home(request):
 def details_view(request, username=None, *args, **kwargs):
     if request.user.is_authenticated and request.user.is_superuser:
         customer = Customer.objects.get(username=username)
+        if customer.is_corporate:
+            customer=Corporate.objects.get(username=username)
 
 
 
@@ -67,6 +69,12 @@ def details_view(request, username=None, *args, **kwargs):
                         product_in_order[0] = product.name
                         break
             NoOfBottles=product_list[0][1]
+            for asset in product_list:
+                if int(asset[1]) == 0:
+                    product_list.remove(asset)
+
+            if int(product_list[0][1]) == 0:
+                product_list = []
         else:
             product_list = []
             NoOfBottles=0

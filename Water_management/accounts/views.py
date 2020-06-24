@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 
 from database.models import Area,Customer
-from .forms import CustomerRegisterForm
+from .forms import CustomerRegisterForm, CorporateRegisterForm
 
 
 from django.conf import settings
@@ -39,6 +39,34 @@ def register_user(request):
             context['areas'] = Area.objects.all()
         return render(request, 'accounts/register.html', context)
 
+def  register_corporate(request):
+    if request.user.is_authenticated:
+        if request.user.is_superuser:
+            return redirect('/admin/home/')
+        elif request.user.is_customer:
+            return redirect('/customer/home/')
+        elif request.user.is_employee:
+            return redirect('/employee/home')
+    else:
+        context = {}
+        if request.POST:
+            form = CorporateRegisterForm(request.POST)
+            form.ConfirmPassword = request.POST.get('ConfirmPassword')
+            if form.is_valid():
+                form.save()
+                if 'not'==request.POST.get('selected_area'):
+                    user= Customer.objects.get(username=form.cleaned_data.get('username'))
+                    user.NotInArea=True
+                    user.save()
+                    return render(request, 'accounts/approval.html',{'user':user})
+                return render(request, 'accounts/approval.html')
+            else:
+                context['form'] = form
+                context['areas'] = Area.objects.all()
+        else:
+            context['form'] = CorporateRegisterForm
+            context['areas'] = Area.objects.all()
+        return render(request, 'accounts/register_corporate.html', context)
 
 def login_user(request):
     context = {}
@@ -76,6 +104,9 @@ def login_user(request):
                 return render(request, 'accounts/login.html', context)
         else:
             return render(request, 'accounts/login.html')
+
+
+
 
 
 def logout_user(request):

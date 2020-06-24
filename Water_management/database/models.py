@@ -38,6 +38,7 @@ class Person(AbstractBaseUser):
     is_admin = md.BooleanField(default=False)
     is_staff = md.BooleanField(default=False)
     is_approved = md.BooleanField(default=False)
+    is_corporate = md.BooleanField(default=False)
     is_customer = md.BooleanField(default=False)
     is_employee = md.BooleanField(default=False)
     created_at = md.DateTimeField(auto_now_add=True)
@@ -99,6 +100,13 @@ class Customer(Person):
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['name']
     objects = CustomerManager()
+
+class Corporate(Customer):
+    NTN = md.IntegerField(null=True, blank=True)
+    STRN = md.IntegerField(null=True, blank=True)
+    registration_number = md.IntegerField(null=True, blank=True)
+    registered_address = md.CharField(max_length=100 ,null=True, blank=True)
+
 
 
 class Vehicle(md.Model):
