@@ -1,4 +1,3 @@
-
 from django.conf.urls import url
 from .views import login_user, logout_user, register_user, register_corporate
 

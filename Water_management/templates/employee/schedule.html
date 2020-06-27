@@ -67,7 +67,7 @@
                                 {% for area in days.areas.all %}
                                     <tr>
                                         <td>
-                                            <a href="{% url 'areawise_orders' regNo area.id %}">
+                                            <a href="{% url 'areawise_orders' regNo days.day area.id %}">
                                                 <h6>{{ area.name }}</h6>
                                             </a>
                                         </td>

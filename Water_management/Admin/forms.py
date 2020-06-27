@@ -1,5 +1,5 @@
 from django import forms
-from database.models import Person, City, Area, Vehicle, Schedule, Customer, Order, Products, Employee, Asset
+from database.models import Person, City, Area, Vehicle, Schedule, Customer, Order, Products, Employee
 
 
 class EmployeeCreateForm(forms.ModelForm):
@@ -48,12 +48,11 @@ class AreaCreateForm(forms.ModelForm):
 class VehicleCreateForm(forms.ModelForm):
     class Meta:
         model = Vehicle
-        fields = ['registrationNo', 'employee']
-        labels = {"registrationNo": "Registration Number", "employee": "Employee"}
+        fields = ['registrationNo', 'vehicleModel', 'employee']
+        labels = {"registrationNo": "Registration Number", "employee": "Employee", 'vehicleModel': 'Model'}
 
 
 class CustomerEditForm(forms.ModelForm):
-    NoOfBottles = forms.IntegerField(label='Number of bottles')
     class Meta:
         model = Customer
         fields = ['name', 'email', 'cnic', 'PhoneNo', 'MonthlyBill', 'NoOfBottles',
@@ -98,8 +97,8 @@ class VehicleSearchForm(forms.Form):
 class ConfirmOrderForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = ['area']
-        labels = {'area': 'Area'}
+        fields = ['priority']
+        labels = {'priority': 'Priority'}
 
     def save(self, commit=True):
         order = super().save(commit=False)
@@ -151,9 +150,12 @@ class CustomerApprovalForm(forms.Form):
 
 
 class CreateProductForm(forms.ModelForm):
+    liquid = forms.FloatField(label="Liquid Quantity in litres")
+    quantity_in_a_pack = forms.IntegerField(label="No. of products in a carton")
+
     class Meta:
         model = Products
-        fields = ['code', 'name', 'price', 'description']
+        fields = ['code', 'name', 'liquid', 'quantity_in_a_pack', 'price', 'description']
         labels = {'code': 'Product Code', 'name': 'Name', 'price': 'Price', 'description': 'Description'}
         widgets = {'description': forms.Textarea()}
 
@@ -164,5 +166,3 @@ class EditProductForm(forms.ModelForm):
         fields = ['name', 'price', 'description']
         labels = {'name': 'Name', 'price': 'Price', 'description': 'Description'}
         widgets = {'description': forms.Textarea()}
-
-

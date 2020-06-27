@@ -1,8 +1,8 @@
 from django.conf.urls import url
 from .views import *
+
 urlpatterns = [
     url(r'^requests/$', account_requests),
-    url(r'^notInAreaRequests/$', not_in_area_requests),
     url(r'^all/$', list_view),
     url(r'^user/(?P<username>[ \w-]+)/$', details_view, name='details'),
     url(r'^allVehicles/$', all_vehicle, name='all_vehicle'),
@@ -22,10 +22,11 @@ urlpatterns = [
     url(r'^updateSchedule/(?P<regNo>[ \w-]+)$', update_schedule, name='edit_schedule'),
     url(r'^orders/$', search_order, name='orders_admin'),
     url(r'^confirmOrder/(?P<id>[\w-]+)$', confirm_order, name='confirm_order_admin'),
-    url(r'^selectVehicle/(?P<id>[\w-]+)$', select_vehicle_for_order, name='add_vehicle_to_order'),
+    # url(r'^selectVehicle/(?P<id>[\w-]+)$', select_vehicle_for_order, name='add_vehicle_to_order'),
     url(r'^newProduct/$', add_product, name='add_product'),
     url(r'^editProduct/(?P<code>[ \w-]+)$', edit_product, name='edit_product'),
     url(r'^allProduct/', all_products, name='all_product'),
     url(r'^records/$', show_records, name='records'),
     url(r'^approvePayment/(?P<id>[\w-]+)$', approve_payment, name="admin_approve_payment"),
+    url(r'^notInAreaRequests/$', not_in_area_requests),
 ]

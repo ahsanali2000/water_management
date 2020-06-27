@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block style %}
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+{% endblock %}
 {% block title %}
     <title>Order</title>
 {% endblock %}
@@ -12,11 +18,11 @@
 
 {% block content %}
     <div class="container">
-    {% if message %}
-    <div class="alert alert-danger text-center">
-        <h4>{{ message }}</h4>
-    </div>
-    {% endif %}
+        {% if message %}
+            <div class="alert alert-danger text-center">
+                <h4>{{ message }}</h4>
+            </div>
+        {% endif %}
         <form method="post">
             {% csrf_token %}
             {% load crispy_forms_tags %}
@@ -24,49 +30,40 @@
             <div class="container ">
                 {% for fields in quantity_form %}
 
-                 <div class="row">
-                     <div class="col-2"></div>
-                    <div class="col-8">
-                        {{ fields|as_crispy_field }}
+                    <div class="row">
+                        <div class="col-2"></div>
+                        <div class="col-8">
+                            {{ fields|as_crispy_field }}
+                        </div>
                     </div>
-                 </div>
                 {% endfor %}
             </div>
-        <div class="container">
-
-
-
+            <div class="container">
 
                 <div class="row">
-                        <div class="col-2"> </div>
+                    <div class="col-2"></div>
                     <div class="col-8">
-                        <p>Select area to deliver order (don't select for your default locaton.)</p>
-                        <select class="col-12 py-2 mb-2" name="selected_area">
-                            <option value="" disabled selected>Select your Area</option>
-                          {% for area in areas %}
-                            <option value="{{area.id}}"> {{ area.name }}, {{ area.city }} </option>
-                          {% endfor %}
-                        </select>
+                        {{ order_form.area|as_crispy_field }}
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-lg-2"></div>
+                    <div class="col-2"></div>
                     <div class="col-8">
                         {{ order_form.address|as_crispy_field }}
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-2"></div>
+                    <div class="col-2"></div>
                     <div class="col-8">
                         {{ order_form.order_type|as_crispy_field }}
                     </div>
                 </div>
 
             </div>
-        <div class="text-center">
-            <button type="submit" class="btn px-5 btn-dark">Order</button>
-        </div>
+            <div class="text-center">
+                <button type="submit" class="btn px-5 btn-dark">Order</button>
+            </div>
 
 
         </form>
@@ -81,3 +78,7 @@
 {% block footer %}
     {% include 'components/footer.html' %}
 {% endblock %}
+
+<script>
+    $('select').selectpicker();
+</script>

@@ -3,7 +3,6 @@ from django import forms
 from database.models import Customer, Corporate
 
 
-
 class CustomerRegisterForm(forms.ModelForm):
     confirm_pass = forms.CharField(widget=forms.PasswordInput, label='Confirm Password')
 
@@ -13,7 +12,6 @@ class CustomerRegisterForm(forms.ModelForm):
             "cnic": "CNIC",
             'email': 'Email Address',
             'PhoneNo': 'Phone Number',
-            'AverageWeekly' : 'Your estimated average consumptions of 19 Litre bottles per week'
         }
         widgets = {
             'password': forms.PasswordInput,
@@ -26,8 +24,7 @@ class CustomerRegisterForm(forms.ModelForm):
             'is_customer',
             'password',
             'PhoneNo',
-            'address',
-            'AverageWeekly',
+            'address'
         ]
 
     def clean_confirm_pass(self):
@@ -47,6 +44,8 @@ class CustomerRegisterForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+
 class CorporateRegisterForm(forms.ModelForm):
     confirm_pass = forms.CharField(widget=forms.PasswordInput, label='Confirm Password')
 
@@ -56,12 +55,12 @@ class CorporateRegisterForm(forms.ModelForm):
             "cnic": "CNIC",
             'email': 'Email Address',
             'PhoneNo': 'Phone Number',
-            'AverageWeekly' : 'Your estimated average consumptions of 19 Litre bottles per week',
-            'NTN' : 'National Tax Number',
-            'STRN' : 'Sales Tax Registration Number',
-            'registration_number' : 'Company Registration Number',
-            'registered_address' : 'Company Registered Address',
-            'address'  : "Delivery Address"
+            'AverageWeekly': 'Your estimated average consumptions of 19 Litre bottles per week',
+            'NTN': 'National Tax Number',
+            'STRN': 'Sales Tax Registration Number',
+            'registration_number': 'Company Registration Number',
+            'registered_address': 'Company Registered Address',
+            'address': "Delivery Address"
         }
         widgets = {
             'password': forms.PasswordInput,
@@ -92,6 +91,7 @@ class CorporateRegisterForm(forms.ModelForm):
 
     def clean_is_customer(self):
         return True
+
     def clean_is_corporate(self):
         return True
 

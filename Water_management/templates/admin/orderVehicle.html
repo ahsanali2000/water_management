@@ -16,6 +16,13 @@
 {% endblock %}
 
 {% block content %}
+    {% if message %}
+    <div class="alert alert-danger">
+    <h4 class="text-center">
+        {{ message }}
+    </h4>
+    </div>
+    {% endif %}
 
     <div class="container">
     <div class="text-center">
@@ -84,8 +91,12 @@
                     <div class="col-2"></div>
                         <div class="col-8 text-center">
                         {% load crispy_forms_tags %}
-                        {{ form.vehicle }}<br>
+                        {{ form|crispy }}<br>
+                            {% if not order.confirmed%}
                         <button type="submit" class="btn btn-dark mt-4 px-5">Confirm</button>
+                                {% else %}
+                                <a href="{% url 'admin_home' %}" class="btn btn-dark btn-lg">Home</a>
+                            {% endif %}
                     </div>
                 </div>
 

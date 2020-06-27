@@ -71,7 +71,7 @@
                             {% for order in regular_orders %}
                                 <tr>
                                     <td>
-                                        <a href="{% url 'order_employee' order.id %}">
+                                        <a href="{% url 'order_employee' order.id day %}">
                                             <h6>{{ order.customer.name }}</h6>
                                         </a>
                                     </td>
@@ -100,7 +100,7 @@
                             {% for order in one_time_orders %}
                                 <tr>
                                     <td>
-                                        <a href="{% url 'order_employee' order.id %}">
+                                        <a href="{% url 'order_employee' order.id day %}">
                                             <h6>{{ order.customer.name }}</h6>
                                         </a>
                                     </td>

@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from database.models import Person, Customer, Order, City, Area, Vehicle, Schedule, Products, Employee,Asset, Corporate
+from database.models import Person, Customer, Order, City, Area, Vehicle, Schedule, Products, Employee, \
+    CustomerPrices, Notifications, Corporate, Asset
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseNotFound
 from .forms import EmployeeCreateForm, VehicleCreateForm, AreaCreateForm, \
@@ -25,19 +26,17 @@ def details_view(request, username=None, *args, **kwargs):
     if request.user.is_authenticated and request.user.is_superuser:
         customer = Customer.objects.get(username=username)
         if customer.is_corporate:
-            customer=Corporate.objects.get(username=username)
-
-
-
+            customer = Corporate.objects.get(username=username)
         if request.POST:
             customerInfoForm = CustomerApprovalForm(request.POST)
             productInfoForm = AddDiscountedPrices(request.POST)
             if customerInfoForm.is_valid() and productInfoForm.is_valid():
-                discounted_prices = form_to_string(productInfoForm)
-                customer.discounted_price = discounted_prices
+                set_prices_from_form(productInfoForm, customer)
 
-                NoOfBottles = customerInfoForm.cleaned_data['NoOfBottles']
-                customer.assets=f'a1:{NoOfBottles}'
+                customer.NoOfBottles = customerInfoForm.cleaned_data['NoOfBottles']
+                if not customer.NoOfBottles:
+                    customer.NoOfBottles = 0
+                customer.assets = f'a1:{customer.NoOfBottles}'
                 customer.MonthlyBill = customerInfoForm.cleaned_data['MonthlyBill']
                 status = customerInfoForm.cleaned_data['status']
                 if status == "1":
@@ -58,8 +57,6 @@ def details_view(request, username=None, *args, **kwargs):
             status = 3
         else:
             status = 1
-
-
         if customer.assets:
             product_list = string_to_list(customer.assets)
             products = Asset.objects.all()
@@ -68,33 +65,23 @@ def details_view(request, username=None, *args, **kwargs):
                     if product_in_order[0] == product.code:
                         product_in_order[0] = product.name
                         break
-            NoOfBottles=product_list[0][1]
+            NoOfBottles = product_list[0][1]
             for asset in product_list:
                 if int(asset[1]) == 0:
                     product_list.remove(asset)
-
-            if int(product_list[0][1]) == 0:
-                product_list = []
         else:
             product_list = []
-            NoOfBottles=0
+            NoOfBottles = 0
+        default_prices = {}
+        for products in customer.discounted_price.all():
+            default_prices[products.product.code] = products.price
 
+        data = {'assets': product_list, 'info_form': CustomerApprovalForm(
+            initial={'NoOfBottles': customer.NoOfBottles, 'MonthlyBill': customer.MonthlyBill,
+                     'status': status}), 'customer': customer, 'product_form': AddDiscountedPrices(
+            initial=default_prices
+        )}
 
-        if customer.discounted_price:
-            default_prices = {}
-            for pair in string_to_list(customer.discounted_price):
-                default_prices[pair[0]] = int(pair[1])
-
-            data = {'assets': product_list,'info_form': CustomerApprovalForm(
-
-                initial={'NoOfBottles': NoOfBottles, 'MonthlyBill': customer.MonthlyBill,
-                         'status': status}), 'customer': customer, 'product_form': AddDiscountedPrices(
-                initial=default_prices
-            )}
-        else:
-            data = {'assets': product_list,'info_form': CustomerApprovalForm(
-                initial={'NoOfBottles':  NoOfBottles, 'MonthlyBill': customer.MonthlyBill,
-                         'status': status}), 'customer': customer, 'product_form': AddDiscountedPrices()}
         return render(request, 'admin/approveCustomer.html', data)
     return HttpResponseNotFound()
 
@@ -117,18 +104,12 @@ def list_view(request):
 
 
 def account_requests(request):
+    if request.POST:
+        pass
     if request.user.is_authenticated and request.user.is_superuser:
-        users = Customer.objects.filter(is_approved=False, NotInArea=False)
-        context = {
-            'users': users,
-            'requesting': request.user
-        }
-        return render(request, 'admin/requests.html', context)
-    return HttpResponseNotFound()
-
-def not_in_area_requests(request):
-    if request.user.is_authenticated and request.user.is_superuser:
-        users = Customer.objects.filter(is_approved=False, NotInArea=True)
+        users = Person.objects.filter(is_approved=False)
+        users = users.exclude(is_admin=True)
+        users = users.exclude(is_employee=True)
         context = {
             'users': users,
             'requesting': request.user
@@ -234,9 +215,13 @@ def add_vehicle(request):
             if form.is_valid():
                 if " " not in form.cleaned_data['registrationNo']:
                     vehicle = form.save()
+                    days = []
                     for day in week:
-                        Schedule(day=day, vehicle=vehicle, order=index).save()
+                        schedule_day = Schedule(day=day, order=index, day_capacity=vehicle.vehicleModel.weightCapacity,
+                                                vehicle=vehicle)
+                        schedule_day.save()
                         index += 1
+
                     data = {"message": "Vehicle Added Successfully!", "form": VehicleCreateForm()}
                 else:
                     data = {
@@ -256,7 +241,6 @@ def all_vehicle(request):
             form = VehicleSearchForm(request.POST)
             if form.is_valid():
                 vehicles = vehicles.filter(registrationNo__contains=form.cleaned_data['regNo'])
-            print(vehicles)
             data = {'vehicles': vehicles, 'admin': request.user, 'form': form}
             return render(request, 'admin/allVehicle.html', data)
         data = {'vehicles': vehicles, "requesting": request.user, 'form': VehicleSearchForm()}
@@ -299,7 +283,28 @@ def update_schedule(request, regNo):
         if request.POST:
             form_set = schedule_formset(request.POST)
             if form_set.is_valid():
-                form_set.save()
+                index = 0
+                for form in form_set:
+                    if form.has_changed():
+                        day = query_set[index]
+                        orders = day.orders.all()
+                        for order in orders:
+                            remove_order_from_schedule(order, day, True)
+                        day.orders.clear()
+                        day.save()
+                        day = form.save(commit=False)
+                        day.day_capacity = vehicle.vehicleModel.weightCapacity
+                        form.save()
+                        orders = Order.objects.filter(confirmed=True, vehicle=None, delivered=False)
+                        for order in orders:
+                            if not place_order_in_schedule(order):
+                                try:
+                                    Notifications(
+                                        description="order no.{} could not be placed in schedule".format(order.id),
+                                        order=order).save()
+                                except:
+                                    pass
+                    index += 1
                 data = {'message': 'Schedule Updated Successfully!', 'formset': form_set, 'week': week}
             else:
                 data = {'message': 'Schedule Update Failed!', 'formset': form_set, 'week': week}
@@ -317,7 +322,6 @@ def show_vehicle_for_schedule(request, page):
             form = VehicleSearchForm(request.POST)
             if form.is_valid():
                 vehicles = vehicles.filter(registrationNo__contains=form.cleaned_data['regNo'])
-            print(vehicles)
             data = {'vehicles': vehicles, 'admin': request.user, 'form': form, 'page': page}
             return render(request, 'admin/selectVehicle.html', data)
         data = {'vehicles': vehicles, "requesting": request.user, 'page': page, 'form': VehicleSearchForm()}
@@ -327,26 +331,32 @@ def show_vehicle_for_schedule(request, page):
 def show_vehicle_schedule(request, regNo):
     if request.user.is_authenticated and request.user.is_superuser:
         vehicle = Vehicle.objects.get(registrationNo=regNo)
-        schedule = Schedule.objects.filter(vehicle=vehicle)
-        schedule = sort_schedule(schedule)
+        schedule = Schedule.objects.filter(vehicle=vehicle).order_by('order')
         data = {'schedule': schedule, "user": request.user}
         return render(request, 'admin/schedule.html', data)  # add this template later
 
 
 def get_notifications():
     notifications = []
-
+    notify = Notifications.objects.all()
+    for notification in notify:
+        notifications.append(notification.description)
     new_customers = Customer.objects.filter(is_approved=False).count()
-    notifications.append("{} Customer{} waiting for approval.".format(new_customers, "" if new_customers == 1 else "s"))
+    if new_customers:
+        notifications.append(
+            "{} Customer{} waiting for approval.".format(new_customers, "" if new_customers == 1 else "s"))
     new_orders = Order.objects.filter(confirmed=False).count()
-    notifications.append("{} Unconfirmed Order{}".format(new_orders, "" if new_orders == 1 else "s"))
+    if new_orders:
+        notifications.append("{} Unconfirmed Order{}".format(new_orders, "" if new_orders == 1 else "s"))
     amount_due = 0
-    bottles_reveived = 0
+    bottles_received = 0
     for employee in Employee.objects.all():
         amount_due += employee.receivedAmount
-        bottles_reveived += employee.receivedBottle
-    notifications.append('Total amount received : {} Rs'.format(amount_due))
-    notifications.append('Total bottles received : {}'.format(bottles_reveived))
+        bottles_received += employee.receivedBottle
+    if amount_due:
+        notifications.append('Total amount received : {} Rs'.format(amount_due))
+    if bottles_received:
+        notifications.append('Total bottles received : {}'.format(bottles_received))
 
     return notifications
 
@@ -379,7 +389,6 @@ def search_order(request):
             form = SearchOrdersForm(request.POST)
             if form.is_valid():
                 status = form.cleaned_data['status']
-                print(status)
                 if status == "delivered":
                     orders = orders.filter(delivered=True)
                 elif status == 'confirmed':
@@ -408,32 +417,20 @@ def search_order(request):
 
 def confirm_order(request, id):
     if request.user.is_authenticated and request.user.is_superuser:
-        order = Order.objects.get(id=int(id))
-        if request.POST:
-            form = ConfirmOrderForm(request.POST, instance=order)
-            if form.is_valid():
-                form.save()
-                return redirect('add_vehicle_to_order', id=id)
-            data = {'message': 'Invalid Data, Please Retry!', 'form': form, 'order': order}
-            return render(request, 'admin/selectArea.html', data)
-        data = {'order': order, 'form': ConfirmOrderForm()}
-        return render(request, 'admin/selectArea.html', data)
-    return HttpResponseNotFound()
-
-
-def select_vehicle_for_order(request, id):
-    if request.user.is_authenticated and request.user.is_superuser:
         order = Order.objects.get(id=id)
         if request.POST:
-            form = SelectAreaOfOrderForm(request.POST, area=order.area)
+            form = ConfirmOrderForm(request.POST)
             if form.is_valid():
-                vehicle = Vehicle.objects.get(registrationNo=form.cleaned_data['vehicle'])
-                order.vehicle = vehicle
+                order.priority = form.cleaned_data['priority']
                 order.save()
+                if not place_order_in_schedule(order):
+                    data = {'order': order, 'form': ConfirmOrderForm(),
+                            'message': 'Order could not be placed due to lack of space'}
+                    return render(request, 'admin/orderVehicle.html', data)
                 return redirect('admin_home')
             data = {'message': 'Invalid Data, Please Retry!', 'form': form}
             return render(request, 'admin/orderVehicle.html', data)
-        data = {'order': order, 'form': SelectAreaOfOrderForm(area=order.area)}
+        data = {'order': order, 'form': ConfirmOrderForm()}
         return render(request, 'admin/orderVehicle.html', data)
     return HttpResponseNotFound()
 
@@ -459,11 +456,18 @@ def add_product(request):
         if request.POST:
             form = CreateProductForm(request.POST)
             if form.is_valid():
-                product = form.save()
+                weight = float(form.cleaned_data['liquid']) * float(form.cleaned_data['quantity_in_a_pack'])
+                weight = weight + weight * 0.1
+                product = form.save(commit=False)
+                product.weight = weight
+                product.save()
                 for customer in Customer.objects.all():
-                    customer.discounted_price += ",{}:{}".format(str(product.code), str(product.price))
+                    discount = CustomerPrices(product=product, price=product.price)
+                    discount.save()
+                    customer.discounted_price.add(discount)
                     customer.save()
-                data = {'message': 'Product added successfully!', 'form': CreateProductForm(), 'user': request.user}
+                data = {'message': 'Product added successfully!', 'form': CreateProductForm(), 'user': request.user,
+                        'message_type': 'success'}
             else:
                 data = {'message': 'Invalid Data, Please Retry!', 'form': form, 'user': request.user}
             return render(request, 'admin/newProduct.html', data)
@@ -530,3 +534,106 @@ def approve_payment(request, id):
         return redirect('records')
     return HttpResponseNotFound()
 
+
+def set_prices_from_form(form, customer):
+    for products in customer.discounted_price.all():
+        for field in form.fields:
+            if products.product.code == '%s' % field:
+                products.price = form.cleaned_data[field]
+                products.save()
+
+
+def place_order_in_schedule(order):
+    area = order.area
+
+    placed = False
+    available_days = Schedule.objects.filter(areas=order.area).distinct().order_by(
+        'vehicle__vehicleModel__weightCapacity').order_by('order')
+    for day in available_days:
+        if order.get_weight() <= day.day_capacity:
+            day.orders.add(order)
+            day.day_capacity -= order.get_weight()
+            order.vehicle = day.vehicle
+            order.confirmed = True
+            remove_notification(order)
+            order.area.save()
+            order.save()
+            day.save()
+            return True
+    if not placed:
+        if order.priority == 2:
+            for day in available_days:
+                for placed_order in day.orders.filter(priority=1):
+                    if placed_order.get_weight() == order.get_weight():
+                        replace_order(placed_order, order, day)
+                        placed = True
+                        return True
+            if not placed:
+                for day in available_days:
+                    for placed_order in day.orders.filter(priority=1):
+                        if placed_order.get_weight() > order.get_weight():
+                            replace_order(placed_order, order, day)
+                            placed = True
+                            return True
+            if not placed:
+                for day in available_days:
+                    for placed_order in day.orders.filter(priority=1):
+                        for placed_order2 in day.orders.filter(priority=1):
+                            if placed_order != placed_order2:
+                                if placed_order.get_weight() + placed_order2.get_weight() >= order.get_weight():
+                                    remove_order_from_schedule(placed_order, day)
+                                    remove_order_from_schedule(placed_order2, day)
+                                    add_order_to_schedule(order, day)
+                                    return True
+
+    return False
+
+
+def replace_order(prev_order, new_order, on_day):
+    remove_order_from_schedule(prev_order, on_day)
+    add_order_to_schedule(new_order, on_day)
+
+
+def remove_notification(order):
+    notify = Notifications.objects.filter(order=order)
+    for notification in notify:
+        notification.delete()
+
+
+def remove_order_from_schedule(placed_order, day, change=False):
+    vehicle = placed_order.vehicle
+    placed_order.vehicle = None
+    if not change:
+        placed_order.confirmed = False
+        day.day_capacity += placed_order.get_weight()
+    day.orders.remove(placed_order)
+    placed_order.save()
+    day.save()
+    if not change:
+        Notifications(
+            description='order no {} from area {} dropped from vehicle {} on {}'.format(placed_order.id,
+                                                                                        placed_order.area,
+                                                                                        vehicle, day.day),
+            order=placed_order).save()
+
+
+def add_order_to_schedule(order, day):
+    day.orders.add(order)
+    day.day_capacity -= order.get_weight()
+    order.vehicle = day.vehicle
+    order.confirmed = True
+    remove_notification(order)
+    day.save()
+    order.save()
+    order.area.save()
+
+
+def not_in_area_requests(request):
+    if request.user.is_authenticated and request.user.is_superuser:
+        users = Customer.objects.filter(is_approved=False, NotInArea=True)
+        context = {
+            'users': users,
+            'requesting': request.user
+        }
+        return render(request, 'admin/requests.html', context)
+    return HttpResponseNotFound()

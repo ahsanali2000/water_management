@@ -19,6 +19,7 @@
                 <a  style="color: black;font-size: 1.3rem" >{{user.name}} </a>
             </div>
               <div class="card-body">
+
             {% for asset in assets %}
                 <div class="row">
                   {% for items in asset %}
@@ -37,7 +38,7 @@
             {% endfor %}
 
             <p class="card-text">Monthly Bill:&nbsp;&nbsp;{{user.MonthlyBill}} </p>
-            <p class="card-text">Amount Due:&nbsp;&nbsp;{{user.AmountDue}} </p>
+            <p class="card-text">Credits:&nbsp;&nbsp;{{user.AmountDue}} </p>
 
 
                   <div class="text-center card-header bg-transparent">
