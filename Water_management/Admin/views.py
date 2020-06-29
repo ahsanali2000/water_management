@@ -34,9 +34,6 @@ def details_view(request, username=None, *args, **kwargs):
                 set_prices_from_form(productInfoForm, customer)
 
                 customer.NoOfBottles = customerInfoForm.cleaned_data['NoOfBottles']
-                if not customer.NoOfBottles:
-                    customer.NoOfBottles = 0
-                customer.assets = f'a1:{customer.NoOfBottles}'
                 customer.MonthlyBill = customerInfoForm.cleaned_data['MonthlyBill']
                 status = customerInfoForm.cleaned_data['status']
                 if status == "1":
@@ -57,26 +54,11 @@ def details_view(request, username=None, *args, **kwargs):
             status = 3
         else:
             status = 1
-        if customer.assets:
-            product_list = string_to_list(customer.assets)
-            products = Asset.objects.all()
-            for product_in_order in product_list:
-                for product in products:
-                    if product_in_order[0] == product.code:
-                        product_in_order[0] = product.name
-                        break
-            NoOfBottles = product_list[0][1]
-            for asset in product_list:
-                if int(asset[1]) == 0:
-                    product_list.remove(asset)
-        else:
-            product_list = []
-            NoOfBottles = 0
         default_prices = {}
         for products in customer.discounted_price.all():
-            default_prices[products.product.code] = products.price
-
-        data = {'assets': product_list, 'info_form': CustomerApprovalForm(
+            default_prices[str(products.product.id)] = products.price
+        print(default_prices)
+        data = {'assets': customer.assets.all(), 'info_form': CustomerApprovalForm(
             initial={'NoOfBottles': customer.NoOfBottles, 'MonthlyBill': customer.MonthlyBill,
                      'status': status}), 'customer': customer, 'product_form': AddDiscountedPrices(
             initial=default_prices
@@ -478,7 +460,7 @@ def add_product(request):
 
 def edit_product(request, code):
     if request.user.is_authenticated and request.user.is_superuser:
-        product = Products.objects.get(code=code)
+        product = Products.objects.get(id=code)
         if request.POST:
             form = EditProductForm(request.POST, instance=product)
             if form.is_valid():
@@ -538,7 +520,7 @@ def approve_payment(request, id):
 def set_prices_from_form(form, customer):
     for products in customer.discounted_price.all():
         for field in form.fields:
-            if products.product.code == '%s' % field:
+            if products.product.id == int(field):
                 products.price = form.cleaned_data[field]
                 products.save()
 

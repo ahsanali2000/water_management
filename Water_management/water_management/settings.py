@@ -39,11 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'database',
     'accounts',
-    'crispy_forms',
     'Admin',
     'customer',
     'employee',
     'inventory',
+
+    'crispy_forms',
+    'mathfilters',
+
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MIDDLEWARE = [

@@ -79,22 +79,17 @@
             </div>
         </div>
         {% endif %}
-
         {% for asset in assets %}
-                <div class="row">
-                   {% for items in asset %}
-                        {% if forloop.counter0 == 0 %}
-                              <div class="col-md-6 text-lg-right text-md-right">
-                                <h5>Number of {{ items }}s:</h5>
-                                </div>
-                        {% else %}
-                             <div class="col-md-6">
-                                    <p>{{ items }}</p>
-                                </div>
-                        {% endif %}
-                  {% endfor %}
-                </div>
-            {% endfor %}
+        <div class="row">
+            <div class="col-md-6  text-lg-right text-md-right ">
+                <h5>Number of {{ asset.asset.name}} :</h5>
+            </div>
+            <div class="col-md-6">
+                <p>{{ asset.amount }}</p>
+            </div>
+        </div>
+    {% endfor %}
+
 
 
         <div class="row">

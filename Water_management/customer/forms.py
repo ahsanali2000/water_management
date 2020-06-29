@@ -8,7 +8,7 @@ class OrderQuantityForm(forms.Form):
         super(OrderQuantityForm, self).__init__(*args, **kwargs)
         products = Products.objects.all()
         for product in products:
-            self.fields['%s' % product.code] = forms.IntegerField(label='%s quantity' % product.name,
+            self.fields['%s' % product.id] = forms.IntegerField(label='%s quantity' % product.name,
                                                                   required=True, initial=0)
 
 

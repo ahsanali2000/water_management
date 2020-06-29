@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 import datetime
 from customer.views import get_product_quantity_map
-from database.models import Order, Customer, Area, Vehicle, Schedule, Employee
+from database.models import Order, Customer, Area, Vehicle, Schedule, Employee, Bottles
 from django.http import HttpResponseNotFound
 from customer.views import product_quantity_list
 
@@ -43,6 +43,12 @@ def view_order(request, order_id, day=None):
                 day_.orders.remove(order)
                 day_.day_capacity += order.get_weight()
                 day_.save()
+
+            bottle=Bottles.objects.get(id=1)
+            bottle.filled = bottle.filled-bottles_given
+            bottle.distributed+=(bottles_given - bottles_received)
+            bottle.save()
+
             order.customer.NoOfBottles += (bottles_given - bottles_received)
             order.customer.AmountDue += abs(int(order.price) - amount_received)
             order.delivered = True

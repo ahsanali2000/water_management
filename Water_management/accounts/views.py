@@ -2,7 +2,7 @@ from django.http import HttpResponseNotFound
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 
-from database.models import Area, Person, Products, CustomerPrices, Customer, Corporate
+from database.models import Area, Person, Products, CustomerPrices
 from .forms import CustomerRegisterForm, CorporateRegisterForm
 
 from django.conf import settings
@@ -112,13 +112,6 @@ def register_corporate(request):
                 if 'not' == request.POST.get('selected_area'):
                     user = Customer.objects.get(username=form.cleaned_data.get('username'))
                     user.NotInArea = True
-                    user.save()
-                    return render(request, 'accounts/approval.html', {'user': user})
-                else:
-                    selected_area = request.POST.get('selected_area')
-                    selected_area = Area.objects.get(id=int(selected_area))
-                    user = Customer.objects.get(username=form.cleaned_data.get('username'))
-                    user.area = selected_area
                     user.save()
                     return render(request, 'accounts/approval.html', {'user': user})
                 return render(request, 'accounts/approval.html')

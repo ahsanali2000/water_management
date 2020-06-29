@@ -12,21 +12,10 @@ quantity = None
 def home(request):
     if request.user.is_authenticated and request.user.is_customer:
         user = Customer.objects.get(username=request.user.username)
-        product_list = string_to_list(user.assets)
-        products = Asset.objects.all()
-        for product_in_order in product_list:
-            for product in products:
-                if product_in_order[0] == product.code:
-                    product_in_order[0] = product.name
-                    break
-        for asset in product_list:
-            if int(asset[1]) == 0:
-                if not asset[0] == 'a1':
-                    product_list.remove(asset)
 
         context = {
             'user': user,
-            'assets': product_list,
+            'assets': user.assets.all(),
             'orders': Order.objects.filter(customer=request.user, delivered=False)
         }
 
@@ -73,7 +62,6 @@ def order(request):
             global order_
             global quantity
             orderForm = OrderForm(request.POST, username=request.user.username)
-
             customer = Customer.objects.get(username=request.user.username)
             quantityForm = OrderQuantityForm(request.POST)
             if orderForm.is_valid() and quantityForm.is_valid():
@@ -129,7 +117,7 @@ def get_price(description, customer):
     net_price = 0
     for product in products:
         for product_price in prices:
-            if product[0] == product_price.product.code:
+            if product[0] == str(product_price.product.id):
                 net_price += product_price.price * int(product[1])
                 break
     return net_price
@@ -137,10 +125,11 @@ def get_price(description, customer):
 
 def get_product_quantity_map(description):
     product_list = string_to_list(description)
+    print(description)
     products = Products.objects.all()
     for product_in_order in product_list:
         for product in products:
-            if product_in_order[0] == product.code:
+            if int(product_in_order[0]) == product.id:
                 product_in_order[0] = product.name
                 break
     return product_list
@@ -171,7 +160,7 @@ def set_order_description(order, description):
     products_ordered = []
     for pairs in desc:
         if int(pairs[1]) > 0:
-            product = OrderDetail(product=Products.objects.get(code=pairs[0]), quantity=int(pairs[1]))
+            product = OrderDetail(product=Products.objects.get(id=pairs[0]), quantity=int(pairs[1]))
             product.save()
             products_ordered.append(product)
     order.desc.set(products_ordered)
@@ -183,7 +172,7 @@ def can_place_order(description, area):
     total_weight = 0
     for pairs in description:
         for product in products:
-            if product.code == pairs[0]:
+            if product.id == pairs[0]:
                 total_weight += product.weight * int(pairs[1])
                 break
     available_days = Schedule.objects.filter(areas=area).distinct().order_by(

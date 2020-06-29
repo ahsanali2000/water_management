@@ -105,9 +105,10 @@ class Customer(Person):
     AmountDue = md.IntegerField(default=0, null=True, blank=True)
     MonthlyBill = md.IntegerField(default=0, null=True, blank=True)
     discounted_price = md.ManyToManyField('CustomerPrices')
-    assets = md.CharField(max_length=100, null=True, blank=True)
+    assets = md.ManyToManyField('CustomerAssets', null=True, blank=True)
     AverageWeekly = md.IntegerField(null=True, blank=True)
     NotInArea = md.BooleanField(default=False)
+
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['name']
     objects = CustomerManager()
@@ -136,7 +137,6 @@ class Vehicle(md.Model):
 class Products(md.Model):
     name = md.CharField(max_length=80, null=False, blank=False)
     price = md.IntegerField(null=False, blank=False)
-    code = md.CharField(max_length=2, primary_key=True)
     description = md.CharField(max_length=500, blank=True, null=True)
     weight = md.FloatField(default=0)
 
@@ -214,8 +214,14 @@ class Schedule(md.Model):
 class Asset(md.Model):
     name = md.CharField(max_length=50)
     total_amount = md.IntegerField()
+    distributed = md.IntegerField(default=0)
     desc = md.TextField(null=True, blank=True)
-    code = md.CharField(max_length=2, primary_key=True)
+
+    def get_remaining(self):
+        return self.total_amount - self.distributed
+
+    def __str__(self):
+        return self.name
 
 
 class Notifications(md.Model):
@@ -234,3 +240,19 @@ class Corporate(Customer):
     STRN = md.IntegerField(null=True, blank=True)
     registration_number = md.IntegerField(null=True, blank=True)
     registered_address = md.CharField(max_length=100, null=True, blank=True)
+
+
+class CustomerAssets(md.Model):
+    asset = md.ForeignKey(Asset, on_delete=md.CASCADE)
+    amount = md.IntegerField(default=0)
+
+    def __str__(self):
+        return "%s ---- %d" % (self.asset.name, self.amount)
+
+    class Meta:
+        verbose_name = "Customer Asset"
+class Bottles(md.Model):
+    name=md.CharField(max_length=50, default='19 Litre Bottle')
+    total=md.IntegerField()
+    filled=md.IntegerField()
+    distributed=md.IntegerField()

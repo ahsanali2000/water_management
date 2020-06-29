@@ -107,6 +107,7 @@ class ConfirmOrderForm(forms.ModelForm):
         return order
 
 
+# currently below form is useless
 class SelectAreaOfOrderForm(forms.Form):
     area_name = ""
     city_name = ""
@@ -137,8 +138,8 @@ class AddDiscountedPrices(forms.Form):
         super(AddDiscountedPrices, self).__init__(*args, **kwargs)
         products = Products.objects.all()
         for product in products:
-            self.fields['%s' % product.code] = forms.IntegerField(label='%s price' % product.name,
-                                                                  required=True, initial=product.price)
+            self.fields['%s' % product.id] = forms.IntegerField(label='%s price' % product.name,
+                                                                required=True, initial=product.price)
 
 
 class CustomerApprovalForm(forms.Form):
@@ -155,8 +156,8 @@ class CreateProductForm(forms.ModelForm):
 
     class Meta:
         model = Products
-        fields = ['code', 'name', 'liquid', 'quantity_in_a_pack', 'price', 'description']
-        labels = {'code': 'Product Code', 'name': 'Name', 'price': 'Price', 'description': 'Description'}
+        fields = ['name', 'liquid', 'quantity_in_a_pack', 'price', 'description']
+        labels = {'name': 'Name', 'price': 'Price', 'description': 'Description'}
         widgets = {'description': forms.Textarea()}
 
 

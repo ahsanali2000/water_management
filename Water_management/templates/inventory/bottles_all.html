@@ -9,7 +9,7 @@
     </style>
 {% endblock %}
 {% block title %}
-    <title>All Assets</title>
+    <title>All Bottles</title>
 {% endblock %}
 
 {% block header %}
@@ -45,6 +45,7 @@
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-9 col-sm-12 ">
+
                     <div class="text-center">
                         <h3>All Assets</h3>
                     </div>
@@ -55,22 +56,28 @@
                         <table class="table table-hover">
                             <thead>
                             <tr>
-                                <th scope="col">id</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Available</th>
                                 <th scope="col">Given</th>
+                                <th scope="col">Empty</th>
+                                <th scope="col">Filled</th>
                                 <th scope="col">Total Amount</th>
+                                <th></th>
                             </tr>
                             </thead>
                             <tbody>
-                            {% for items in assets %}
+                            {% for items in bottles %}
 
                                 <tr>
-                                    <td>{{ items.id }}</td>
-                                    <td><a href="/inventory/asset/{{ items.id }}">{{ items.name }}</a></td>
-                                    <td>{{ items.get_remaining }}</td>
+                                {% load mathfilters %}
+                                    <td>{{ items.name }}</td>
+                                    <td>{{ items.total|sub:items.distributed }}</td>
                                     <td>{{ items.distributed }}</td>
-                                    <td>{{ items.total_amount }}</td>
+                                    <td>{{ items.total|sub:items.filled |sub:items.distributed  }}</td>
+                                    <td><input type="number" value="{{ items.filled }}" name="filled"></td>
+                                    <td><input type="number" value="{{ items.total }}" name="total"> </td>
+                                    <input type="hidden" name="id" value="{{items.id}}">
+                                    <td><input type="submit" class="btn btn-dark"></td>
 
                                 </tr>
 
@@ -78,7 +85,11 @@
                             </tbody>
                         </table>
                     </form>
-
+                    {% if error %}
+                        <div class="alert alert-danger text-center" role="alert">
+                          {{error}}
+                        </div>
+                    {% endif %}
 
                 </div>
             </div>
