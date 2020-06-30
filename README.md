@@ -3,7 +3,7 @@ Water management project is a sort of general software that can be used by any t
 
 
 
-##Execution
+## Execution
 run the following commands to run Water management
 
 $ cd env
@@ -11,8 +11,8 @@ $ .\Scripts\activate
 $ python manage.py runserver
 
 
-##Tasks
-###It performs the following tasks
+## Tasks
+### It performs the following tasks
 
 - Placing order by customer 
 - Order confirmation by Admin 
@@ -25,7 +25,7 @@ $ python manage.py runserver
 - Schedule to make job easy for employee 
 
 
-###Future work
+### Future work
 
 - Admin will track employee 
 - Employee will have optimized map of each day according to orders 
