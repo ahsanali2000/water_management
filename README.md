@@ -6,9 +6,9 @@ Water management project is a sort of general software that can be used by any t
 ## Execution
 run the following commands to run Water management
 
-$ cd env
-$ .\Scripts\activate
-$ python manage.py runserver
+- $ cd env
+- $ .\Scripts\activate
+- $ python manage.py runserver
 
 
 ## Tasks
