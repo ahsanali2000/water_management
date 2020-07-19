@@ -13,29 +13,34 @@
 
     {% if user.is_authenticated %}
         <div class="container">
-        <div class="row">
-        <div class="col-3 d-sm-none d-md-block">
-            <div class="text-center">
-                <h3>Your Profile</h3><hr>
-            </div>
-            <div class="card">
-              <div class="text-center card-header">
-                <a  style="color: black;font-size: 1.3rem" >{{user.name}} </a>
-            </div>
-              <div class="card-body">
+            <div class="row">
+                <div class="col-3 d-none d-lg-block d-xl-block">
+                    <div class="text-center">
+                        <h3>Your Profile</h3>
+                        <hr>
+                    </div>
+                    <div class="card">
+                        <div class="text-center card-header">
+                            <a style="color: black;font-size: 1.3rem">{{ user.name }} </a>
+                        </div>
+                        <div class="card-body">
 
-            <p class="card-text">No of Bottles:&nbsp;&nbsp;{{user.NoOfBottles}} </p>
-            <p class="card-text">Monthly Bill:&nbsp;&nbsp;{{user.MonthlyBill}} </p>
-            <p class="card-text">Credits:&nbsp;&nbsp;{{user.AmountDue}} </p>
+                            <p class="card-text">No of Bottles:&nbsp;&nbsp;{{ user.NoOfBottles }} </p>
+                            <p class="card-text">Monthly Bill:&nbsp;&nbsp;{{ user.MonthlyBill }} </p>
+                            {% if user.AmountDue < 0 %}
+                                {% load mathfilters %}
+                                <p class="card-text">Credits:&nbsp;&nbsp;{{ user.AmountDue|mul:-1 }} </p>
+                            {% else %}
+                                <p class="card-text">Amount Due:&nbsp;&nbsp;{{ user.AmountDue }} </p>
+                            {% endif %}
 
-
-                  <div class="text-center card-header bg-transparent">
-                <a href = '{% url 'customer_profile' %}'   class="btn btn-dark">View Profile</a>
-                  </div>
-              </div>
-            </div>
-        </div>
-        <div class="col-lg-9 col-md-9 col-sm-12 ">
+                            <div class="text-center card-header bg-transparent">
+                                <a href='{% url 'customer_profile' %}' class="btn btn-dark">View Profile</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-12 ">
                     {% if request.user.is_authenticated %}
                         <div class="text-center">
                             <h3>Order List</h3>

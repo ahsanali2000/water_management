@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 import datetime
 from customer.views import get_product_quantity_map
-from database.models import Order, Customer, Area, Vehicle, Schedule, Employee, Bottles
+from database.models import Order, Customer, Area, Vehicle, Schedule, Employee, Bottles, OrderDetail, Products
 from django.http import HttpResponseNotFound
 from customer.views import product_quantity_list
+from .forms import BottleDeliverForm, OrderDeliveryForm
 
 
 def employee_schedule(request, regNo):
@@ -24,53 +25,128 @@ def show_schedule(request):
 
 
 def view_order(request, order_id, day=None):
-    order = Order.objects.get(id=order_id)
-    if request.POST.get('amount_received'):
-        messages = ''
-        amount_received = int(request.POST.get('amount_received'))
-        bottles_given = int(request.POST.get('bottles_given'))
-        bottles_received = int(request.POST.get('bottles_received'))
-        employee = Employee.objects.get(username=request.user.username)
+    if request.user.is_authenticated and request.user.is_employee:
+        order = Order.objects.get(id=order_id)
+        if request.POST and "deliverButton" in request.POST:
+            form = OrderDeliveryForm(request.POST)
+            if form.is_valid():
+                amount_received = form.cleaned_data['amount']
+                bottles_received = form.cleaned_data['bottles_received']
+                bottles_given = order.desc.get(product__weight=20.9).quantity
+                employee = Employee.objects.get(username=request.user.username)
+                if order.customer.NoOfBottles - bottles_received < 0 or bottles_received < 0:
+                    messages = "Invalid No Of bottles"
+                elif amount_received < 0:
+                    messages = "Invalid Payment entered!"
+                else:
+                    if order.frequency == '1':
+                        day_ = Schedule.objects.filter(orders=order).distinct().first()
+                        day_.extraBottles += request.session['extraBottles']
+                        request.session['extraBottles'] = None
+                        day_.orders.remove(order)
+                        reduce_schedule_load(order, day_)
+                        product = order.desc.get(product__weight=20.9)
+                        product.quantity = request.session['noOfBottles']
+                        order.price = request.session['total_price']
+                        product.save()
+                        request.session['noOfBottles'] = None
+                        request.session['total_price'] = None
+                        weight = order.get_weight()
+                        if day_.tolerance < day_.vehicle.vehicleModel.tolerance / 2:
+                            if weight >= (day_.vehicle.vehicleModel.tolerance / 2) - day_.tolerance:
+                                add_to_tolerance = (day_.vehicle.vehicleModel.tolerance / 2) - day_.tolerance
+                                day_.tolerance += add_to_tolerance
+                                weight -= add_to_tolerance
+                                day_.day_capacity += weight
+                            else:
+                                day_.tolerance += weight
+                        else:
+                            day_.day_capacity += weight
+                        day_.save()
+                    bottle = Bottles.objects.all()[0]
+                    bottle.filled = bottle.filled - bottles_given
+                    bottle.distributed += (bottles_given - bottles_received)
+                    bottle.save()
+                    order.customer.NoOfBottles -= bottles_received
 
-        if int(order.customer.NoOfBottles) + bottles_given - bottles_received < 0:
-            messages = "Invalid No Of bottles"
-        elif int(order.price) - amount_received > 0:
-            messages = "Invalid Payment entered!"
+                    order.customer.AmountDue = order.price - amount_received + order.customer.AmountDue
+                    order.delivered = True
+                    order.delivered_at = datetime.datetime.now()
+                    order.delivered_by = employee
+                    order.customer.save()
+                    order.save()
 
-        else:
-            if order.frequency == '1':
-                day_ = Schedule.objects.filter(orders=order).distinct().first()
-                day_.orders.remove(order)
-                day_.day_capacity += order.get_weight()
-                day_.save()
+                    employee.receivedBottle += bottles_received
+                    employee.receivedAmount += amount_received
+                    employee.save()
 
-            bottle=Bottles.objects.get(id=1)
-            bottle.filled = bottle.filled-bottles_given
-            bottle.distributed+=(bottles_given - bottles_received)
-            bottle.save()
+                    return redirect('areawise_orders', order.vehicle.registrationNo, day, order.area.id)
+                data = {'message': messages, 'Deliverform': OrderDeliveryForm(),
+                        'noOfBottles': request.session['noOfBottles'], 'total_price': request.session['total_price']}
+                return render(request, 'employee/order_delivery_details.html', data)
+        if request.POST and "bottlesButton" in request.POST:
+            form = BottleDeliverForm(request.POST)
+            if form.is_valid():
+                noOfBottles = form.cleaned_data['noOfBottles']
+                request.session['noOfBottles'] = noOfBottles
+                request.session['extraBottles'] = 0
+                try:
+                    quantity = order.desc.get(product__weight=20.9).quantity
+                    total_price = order.price
+                    request.session['total_price'] = total_price
+                    if noOfBottles != quantity:
+                        day_ = Schedule.objects.filter(orders=order).distinct().first()
+                        if noOfBottles < quantity:
+                            request.session['extraBottles'] = abs(quantity - noOfBottles)
+                        elif noOfBottles > quantity + day_.extraBottles:
+                            message = "No extra Bottles Available"
+                            data = {'order': order, 'form': BottleDeliverForm(), 'message': message}
+                            return render(request, 'employee/order_delivery_details.html', data)
+                        elif noOfBottles <= (quantity + day_.extraBottles):
+                            request.session['extraBottles'] = quantity - noOfBottles
+                        bottle_price = order.customer.discounted_price.get(product__weight=20.9).price
+                        total_price = bottle_price * noOfBottles
+                        current = bottle_price * quantity
+                        request.session['current'] = current
+                        request.session['total_price'] = total_price
+                        order.save()
+                except:
+                    product = OrderDetail(product=Products.objects.get(weight=20.9), quantity=noOfBottles)
+                    product.save()
+                    order.desc.add(product)
+                    bottle_price = order.customer.discounted_price.get(product__weight=20.9).price
+                    total_price = bottle_price * noOfBottles
+                    order.price += total_price
+                    order.save()
+                order.customer.NoOfBottles += noOfBottles
+                order.customer.save()
+                data = {'order': order, 'Deliverform': OrderDeliveryForm(), 'noOfBottles': noOfBottles,
+                        'total_price': total_price}
+                if order.customer.AmountDue < 0:
+                    data['credit'] = abs(order.customer.AmountDue)
+                    if data['credit'] <= total_price:
+                        data['amountDue'] = total_price - data['credit']
+                    else:
+                        data['amountDue'] = 0
+                elif order.customer.AmountDue > 0:
+                    data['prev_amount_due'] = order.customer.AmountDue
+                    data['amountDue'] = total_price + order.customer.AmountDue
+                else:
+                    data['amountDue'] = total_price
 
-            order.customer.NoOfBottles += (bottles_given - bottles_received)
-            order.customer.AmountDue += abs(int(order.price) - amount_received)
-            order.delivered = True
-            order.delivered_at = datetime.datetime.now()
-            order.delivered_by = employee
-            order.customer.save()
-            order.save()
+            else:
+                data = {'order': order, 'form': BottleDeliverForm()}
+            return render(request, 'employee/order_delivery_details.html', data)
 
-            employee.receivedBottle += bottles_received
-            employee.receivedAmount += amount_received
-            employee.save()
-
-            return redirect('areawise_orders', order.vehicle.registrationNo, day, order.area.id)
-
-        return render(request, 'employee/order_delivery_details.html', context={'messages': messages})
-
-    if request.POST and request.user.is_employee and request.user.is_authenticated:
-        return render(request, 'employee/order_delivery_details.html')
-    elif request.user.is_authenticated and request.user.is_employee:
-        customer = order.customer
-        data = {'order': order, 'quantity': product_quantity_list(order.desc.all()), 'customer': customer}
-        return render(request, 'employee/ordered.html', data)
+        if request.POST and request.user.is_employee and request.user.is_authenticated:
+            request.session['noOfBottles'] = None
+            data = {'form': BottleDeliverForm()}
+            return render(request, 'employee/order_delivery_details.html', data)
+        elif request.user.is_authenticated and request.user.is_employee:
+            request.session['noOfBottles'] = None
+            customer = order.customer
+            data = {'order': order, 'quantity': product_quantity_list(order.desc.all()), 'customer': customer}
+            return render(request, 'employee/ordered.html', data)
 
     return HttpResponseNotFound()
 
@@ -159,3 +235,11 @@ def profile(request):
         data = {'user': Employee.objects.get(username=request.user.username)}
         return render(request, 'employee/profile.html', data)
     return HttpResponseNotFound()
+
+
+def reduce_schedule_load(order, day):
+    for product in order.desc.all():
+        for load in day.daily_load.all():
+            if product.product == load.product:
+                load.total_quantity -= product.quantity
+                load.save()

@@ -12,6 +12,9 @@ class CustomerRegisterForm(forms.ModelForm):
             "cnic": "CNIC",
             'email': 'Email Address',
             'PhoneNo': 'Phone Number',
+            'AverageWeekly': 'Your estimated average consumptions of 19 Litre bottles per week',
+            'area': "Select your area (If your area is not present in options leave "
+                    "it blank and enter your full address)"
         }
         widgets = {
             'password': forms.PasswordInput,
@@ -24,7 +27,9 @@ class CustomerRegisterForm(forms.ModelForm):
             'is_customer',
             'password',
             'PhoneNo',
-            'address'
+            'area',
+            'address',
+            "AverageWeekly"
         ]
 
     def clean_confirm_pass(self):
@@ -41,6 +46,8 @@ class CustomerRegisterForm(forms.ModelForm):
         # Save the provided password in hashed format
         user = super().save(commit=False)
         user.set_password(self.cleaned_data["password"])
+        if not self.cleaned_data['area']:
+            user.NotInArea = True
         if commit:
             user.save()
         return user
@@ -60,7 +67,9 @@ class CorporateRegisterForm(forms.ModelForm):
             'STRN': 'Sales Tax Registration Number',
             'registration_number': 'Company Registration Number',
             'registered_address': 'Company Registered Address',
-            'address': "Delivery Address"
+            'address': "Delivery Address",
+            'area': "Select your area (If your area is not present in options leave "
+                    "it blank and enter your full address)"
         }
         widgets = {
             'password': forms.PasswordInput,
@@ -74,6 +83,7 @@ class CorporateRegisterForm(forms.ModelForm):
             'is_corporate',
             'password',
             'PhoneNo',
+            'area',
             'address',
             'AverageWeekly',
             'NTN',
@@ -99,6 +109,8 @@ class CorporateRegisterForm(forms.ModelForm):
         # Save the provided password in hashed format
         user = super().save(commit=False)
         user.set_password(self.cleaned_data["password"])
+        if not self.cleaned_data['area']:
+            user.NotInArea = True
         if commit:
             user.save()
         return user

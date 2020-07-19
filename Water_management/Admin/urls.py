@@ -29,4 +29,5 @@ urlpatterns = [
     url(r'^records/$', show_records, name='records'),
     url(r'^approvePayment/(?P<id>[\w-]+)$', approve_payment, name="admin_approve_payment"),
     url(r'^notInAreaRequests/$', not_in_area_requests),
+    url(r'^placement/(?P<regNo>[\w-]+)/(?P<day>[\w-]+)$', viewPlacementDetails, name='admin_vehicle_placement'),
 ]

@@ -10,6 +10,7 @@ from accounts.models import CustomerManager, UserManager, EmployeeManager
 class VehicleType(md.Model):
     vehicleModel = md.CharField(max_length=255)
     weightCapacity = md.IntegerField()
+    tolerance = md.IntegerField(default=0)
 
     def __str__(self):
         return self.vehicleModel
@@ -204,11 +205,28 @@ class Schedule(md.Model):
     day = md.CharField(max_length=10, null=False, blank=False, choices=day_choices)
     areas = md.ManyToManyField(Area, null=True, blank=True)
     order = md.IntegerField(null=False, default=0, blank=False, editable=False)
-    day_capacity = md.IntegerField(default=0)
+    day_capacity = md.FloatField(default=0)
+    tolerance = md.FloatField(default=0)
     orders = md.ManyToManyField(Order, null=True, blank=True)
+    extraBottles = md.IntegerField(default=0)
+    daily_load = md.ManyToManyField('ScheduleProducts')
 
     def __str__(self):
         return "%s -- %s" % (self.day, self.vehicle)
+
+    def extraProductSpace(self, weight):
+        return round(self.day_capacity / weight)
+
+
+class ScheduleProducts(md.Model):
+    product = md.ForeignKey(Products, on_delete=md.CASCADE)
+    total_quantity = md.IntegerField(default=0)
+
+    class Meta:
+        verbose_name = 'Schedule Product'
+
+    def __str__(self):
+        return '%s -- %d' % (self.product, self.total_quantity)
 
 
 class Asset(md.Model):
@@ -251,8 +269,10 @@ class CustomerAssets(md.Model):
 
     class Meta:
         verbose_name = "Customer Asset"
+
+
 class Bottles(md.Model):
-    name=md.CharField(max_length=50, default='19 Litre Bottle')
-    total=md.IntegerField()
-    filled=md.IntegerField()
-    distributed=md.IntegerField()
+    name = md.CharField(max_length=50, default='19 Litre Bottle')
+    total = md.IntegerField()
+    filled = md.IntegerField()
+    distributed = md.IntegerField()

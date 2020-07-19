@@ -5,9 +5,6 @@ from ast import literal_eval
 from .forms import OrderForm, OrderQuantityForm
 from Admin.views import string_to_list, form_to_string
 
-order_ = None
-quantity = None
-
 
 def home(request):
     if request.user.is_authenticated and request.user.is_customer:
@@ -46,12 +43,15 @@ def my_orders(request):
 
 def order_confirmed(request):
     if request.POST and request.user.is_authenticated:
-        global order_
-        global quantity
+        data = request.session['data']
+        order_ = Order(customer=Customer.objects.get(username=data['username']),
+                       frequency=data['frequency'],
+                       address=data['address'],
+                       area=Area.objects.get(name=data['area_name'], city__city=data['city__city']),
+                       price=data['price'])
         order_.save()
-        set_order_description(order_, quantity)
-        order_ = None
-        quantity = None
+        set_order_description(order_, data['quantity'])
+        request.session['data'] = None
         return redirect('customer_home')
     return HttpResponseNotFound()
 
@@ -59,8 +59,6 @@ def order_confirmed(request):
 def order(request):
     if request.user.is_authenticated and not request.user.is_superuser and not request.user.is_employee:
         if request.POST:
-            global order_
-            global quantity
             orderForm = OrderForm(request.POST, username=request.user.username)
             customer = Customer.objects.get(username=request.user.username)
             quantityForm = OrderQuantityForm(request.POST)
@@ -94,6 +92,15 @@ def order(request):
 
                 order_ = Order(customer=customer, frequency=orderForm.cleaned_data['order_type'],
                                address=address, area=selected_area, price=price)
+                request.session['data'] = {
+                    "username": request.user.username,
+                    'frequency': orderForm.cleaned_data['order_type'],
+                    "address": address,
+                    'area_name': area[0].strip(),
+                    'city__city': area[1].strip(),
+                    'price': price,
+                    "quantity": quantity
+                }
 
                 data = {'order': order_, 'quantity': get_product_quantity_map(quantity), 'customer': customer,
                         'price': price}

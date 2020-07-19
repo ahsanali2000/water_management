@@ -1,12 +1,12 @@
 from django.shortcuts import render
 from database.models import Person, Customer, Order, City, Area, Vehicle, Schedule, Products, Employee, \
-    CustomerPrices, Notifications, Corporate, Asset
+    CustomerPrices, Notifications, Corporate, Asset, ScheduleProducts
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseNotFound
 from .forms import EmployeeCreateForm, VehicleCreateForm, AreaCreateForm, \
     CityCreateForm, EmployeeEditForm, VehicleEditForm, SearchOrdersForm, PersonSearchForm, VehicleSearchForm, \
     ConfirmOrderForm, SelectAreaOfOrderForm, CustomerApprovalForm, AddDiscountedPrices, CreateProductForm, \
-    EditProductForm
+    EditProductForm, AddExtraBottlesForm
 from django.forms import formset_factory, modelformset_factory
 from django import forms
 
@@ -194,13 +194,20 @@ def add_vehicle(request):
         index = 0
         if request.POST:
             form = VehicleCreateForm(request.POST)
+            products = Products.objects.all()
             if form.is_valid():
                 if " " not in form.cleaned_data['registrationNo']:
                     vehicle = form.save()
                     days = []
                     for day in week:
                         schedule_day = Schedule(day=day, order=index, day_capacity=vehicle.vehicleModel.weightCapacity,
-                                                vehicle=vehicle)
+                                                vehicle=vehicle, tolerance=vehicle.vehicleModel.tolerance/2)
+                        schedule_day.save()
+                        for product in products:
+                            details = ScheduleProducts(product=product, total_quantity=0)
+                            print(details)
+                            details.save()
+                            schedule_day.daily_load.add(details)
                         schedule_day.save()
                         index += 1
 
@@ -314,7 +321,7 @@ def show_vehicle_schedule(request, regNo):
     if request.user.is_authenticated and request.user.is_superuser:
         vehicle = Vehicle.objects.get(registrationNo=regNo)
         schedule = Schedule.objects.filter(vehicle=vehicle).order_by('order')
-        data = {'schedule': schedule, "user": request.user}
+        data = {'schedule': schedule, "user": request.user, 'vehicle': vehicle}
         return render(request, 'admin/schedule.html', data)  # add this template later
 
 
@@ -405,7 +412,11 @@ def confirm_order(request, id):
             if form.is_valid():
                 order.priority = form.cleaned_data['priority']
                 order.save()
-                if not place_order_in_schedule(order):
+                if "forciblyPlace" in request.POST:
+                    forcibly = True
+                else:
+                    forcibly = False
+                if not place_order_in_schedule(order, forcibly):
                     data = {'order': order, 'form': ConfirmOrderForm(),
                             'message': 'Order could not be placed due to lack of space'}
                     return render(request, 'admin/orderVehicle.html', data)
@@ -448,6 +459,11 @@ def add_product(request):
                     discount.save()
                     customer.discounted_price.add(discount)
                     customer.save()
+                for day in Schedule.objects.all():
+                    new_product = ScheduleProducts(product=product, total_quantity=0)
+                    new_product.save()
+                    day.daily_load.add(new_product)
+                    day.save()
                 data = {'message': 'Product added successfully!', 'form': CreateProductForm(), 'user': request.user,
                         'message_type': 'success'}
             else:
@@ -525,22 +541,37 @@ def set_prices_from_form(form, customer):
                 products.save()
 
 
-def place_order_in_schedule(order):
-    area = order.area
-
+def place_order_in_schedule(order, forcibly=False):
     placed = False
     available_days = Schedule.objects.filter(areas=order.area).distinct().order_by(
         'vehicle__vehicleModel__weightCapacity').order_by('order')
     for day in available_days:
+        if forcibly and not order.priority == 2:
+            if order.get_weight() <= day.day_capacity + day.tolerance:
+                placed = True
+                day.orders.add(order)
+                weight = order.get_weight() - day.day_capacity
+                day.day_capacity = 0
+                day.tolerance -= weight
+                update_schedule_load(day, order)
+                order.vehicle = day.vehicle
+                order.confirmed = True
+                remove_notification(order)
+                order.area.save()
+                order.save()
+                day.save()
+                return True
         if order.get_weight() <= day.day_capacity:
             day.orders.add(order)
             day.day_capacity -= order.get_weight()
+            update_schedule_load(day, order)
             order.vehicle = day.vehicle
             order.confirmed = True
             remove_notification(order)
             order.area.save()
             order.save()
             day.save()
+            placed = True
             return True
     if not placed:
         if order.priority == 2:
@@ -555,6 +586,7 @@ def place_order_in_schedule(order):
                     for placed_order in day.orders.filter(priority=1):
                         if placed_order.get_weight() > order.get_weight():
                             replace_order(placed_order, order, day)
+                            update_schedule_load(day, order)
                             placed = True
                             return True
             if not placed:
@@ -566,9 +598,18 @@ def place_order_in_schedule(order):
                                     remove_order_from_schedule(placed_order, day)
                                     remove_order_from_schedule(placed_order2, day)
                                     add_order_to_schedule(order, day)
+                                    update_schedule_load(day, order)
                                     return True
 
     return False
+
+
+def update_schedule_load(day, order):
+    for product in order.desc.all():
+        for load in day.daily_load.all():
+            if product.product == load.product:
+                load.total_quantity += product.quantity
+                load.save()
 
 
 def replace_order(prev_order, new_order, on_day):
@@ -619,3 +660,26 @@ def not_in_area_requests(request):
         }
         return render(request, 'admin/requests.html', context)
     return HttpResponseNotFound()
+
+
+def viewPlacementDetails(request, regNo, day):
+    if request.user.is_authenticated and request.user.is_superuser:
+        schedule = Schedule.objects.get(vehicle__registrationNo=regNo, day=day)
+        extra = schedule.extraProductSpace(20.4) + schedule.extraBottles
+        if request.POST:
+            schedule.day_capacity += schedule.extraBottles * 20.4
+            schedule.save()
+            form = AddExtraBottlesForm(request.POST, instance=schedule, max=extra)
+            if form.is_valid():
+                schedule = form.save(commit=False)
+                schedule.day_capacity -= schedule.extraBottles * 20.4
+                schedule.save()
+            else:
+                schedule.day_capacity -= schedule.extraBottles * 20.4
+                schedule.save()
+            form = AddExtraBottlesForm(instance=schedule, max=extra)
+            data = {'details': schedule.daily_load.all(), 'form': form, 'day': day, 'extra': extra}
+            return render(request, 'admin/placement.html', data)
+        form = AddExtraBottlesForm(instance=schedule, max=extra)
+        data = {'details': schedule.daily_load.all(), 'form': form, 'day': day, 'extra': extra}
+        return render(request, 'admin/placement.html', data)

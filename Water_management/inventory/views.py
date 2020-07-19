@@ -89,7 +89,8 @@ def all_inventory(request):
         data = {'assets': assets}
         return render(request, 'inventory/inventory_all.html', data)
 
-def asset_details(request,id=None , *args, **kwargs):
+
+def asset_details(request, id=None, *args, **kwargs):
     if request.user.is_authenticated and request.user.is_superuser:
         asset = Asset.objects.get(id=id)
         context = {
@@ -102,19 +103,18 @@ def asset_details(request,id=None , *args, **kwargs):
                 asset = Asset.objects.get(id=asset)
                 asset.delete()
             else:
-                name=request.POST.get('name')
-                desc=request.POST.get('desc')
-                total_amount=request.POST.get('total_amount')
-                if int(total_amount)<0:
+                name = request.POST.get('name')
+                desc = request.POST.get('desc')
+                total_amount = request.POST.get('total_amount')
+                if int(total_amount) < 0:
                     context['error'] = 'Invalid Input'
                 else:
-                    asset.name=name
-                    asset.total_amount=total_amount
-                    asset.desc=desc
+                    asset.name = name
+                    asset.total_amount = total_amount
+                    asset.desc = desc
                     asset.save()
                     context['massege'] = 'Asset Added'
             return redirect('/inventory/inventory_all/')
-
 
         return render(request, 'inventory/add_asset.html', context=context)
     return HttpResponseNotFound()
@@ -134,6 +134,7 @@ def add_asset(request):
 
         return render(request, 'inventory/add_asset.html', context=context)
 
+
 def all_bottles(request):
     if request.user.is_authenticated and request.user.is_superuser:
         bottles = Bottles.objects.all()
@@ -143,15 +144,14 @@ def all_bottles(request):
             total = request.POST.get('total')
             id = request.POST.get('id')
             distributed = sum([item.NoOfBottles for item in Customer.objects.all()])
-            if int(total)<int(distributed) or int(filled)>(int(total)-int(distributed)):
-                data['error']="Invalid Input"
+            if int(total) < int(distributed) or int(filled) > (int(total) - int(distributed)):
+                data['error'] = "Invalid Input"
             else:
-                bottle=Bottles.objects.get(id=id)
-                bottle.filled=filled
-                bottle.total=total
-                bottle.distributed=distributed
+                bottle = Bottles.objects.get(id=id)
+                bottle.filled = filled
+                bottle.total = total
+                bottle.distributed = distributed
                 bottle.save()
-                return redirect('/admin/home')
-
+                return render(request, 'inventory/bottles_all.html', data)
 
         return render(request, 'inventory/bottles_all.html', data)

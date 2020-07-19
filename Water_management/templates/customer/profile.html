@@ -60,14 +60,26 @@
                 <p>{{ user.NoOfBottles }}</p>
             </div>
         </div>
+    {% if user.AmountDue < 0 %}
+        {% load mathfilters %}
         <div class="row">
             <div class="col-md-6 text-lg-right text-md-right">
                 <h5>Credits :</h5>
             </div>
             <div class="col-md-6">
+                <p>{{ user.AmountDue|mul:-1 }}</p>
+            </div>
+        </div>
+    {% else %}
+            <div class="row">
+            <div class="col-md-6 text-lg-right text-md-right">
+                <h5>Amount Due :</h5>
+            </div>
+            <div class="col-md-6">
                 <p>{{ user.AmountDue }}</p>
             </div>
         </div>
+    {% endif %}
         <div class="row">
             <div class="col-md-6 text-lg-right text-md-right ">
                 <h5>Monthly Bill :</h5>

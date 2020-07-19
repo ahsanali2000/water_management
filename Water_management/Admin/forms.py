@@ -167,3 +167,21 @@ class EditProductForm(forms.ModelForm):
         fields = ['name', 'price', 'description']
         labels = {'name': 'Name', 'price': 'Price', 'description': 'Description'}
         widgets = {'description': forms.Textarea()}
+
+
+class AddExtraBottlesForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        self.max = kwargs.pop('max')
+        super(AddExtraBottlesForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = Schedule
+        fields = ['extraBottles']
+        labels = {'extraBottles': ''}
+
+    def clean_extraBottles(self):
+        bottles = self.cleaned_data['extraBottles']
+        if bottles < 0 or bottles > self.max:
+            return 0
+        else:
+            return bottles
