@@ -83,16 +83,18 @@
     <hr>
 
     <div class='text-center'>
-        <a class="btn btn-dark px-5" href="{% if order.delivered %}{% url 'delivered_orders' %}
-            {% elif order.confirmed %}{% url 'confirmed_not_delivered_orders' %}
-            {% elif not order.confirmed %}{% url 'not_confirmed' %}{% endif %}
-        ">Back</a>
+
     {% if order.confirmed and not order.delivered and request.user.is_employee%}
         <form method="post" action=".">
             {% csrf_token %}
             <button type="submit" value="1" class="btn btn-dark mt-2 px-5" >Deliver Order</button>
         </form>
     {% endif %}
+    <br>
+    <a class="btn btn-dark px-5" href="{% if order.delivered %}{% url 'delivered_orders' %}
+            {% elif order.confirmed %}{% url 'confirmed_not_delivered_orders' %}
+            {% elif not order.confirmed %}{% url 'not_confirmed' %}{% endif %}
+        ">Back</a>
     </div>
     </div>
 {% endblock %}

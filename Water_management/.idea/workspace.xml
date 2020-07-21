@@ -2,51 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="461b0a9e-2094-4b1b-a4d3-d4aa22a48dbd" name="Default Changelist" comment="Customer and employee frontend done">
-      <change afterPath="$PROJECT_DIR$/database/migrations/0002_auto_20200620_1805.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/0003_employee_receivedbottle.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/0003_schedule_extrabottles.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/0004_order_delivered_by.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/0004_scheduleproducts.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/0005_person_area.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/0005_schedule_daily_load.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/0006_auto_20200622_1621.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/0006_auto_20200702_1348.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/0007_area_capacity.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/0007_schedule_tolerance.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/0008_vehicletype.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/0008_vehicletype_tolerance.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/0009_auto_20200703_0228.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/0009_vehicle_vehiclemodel.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/0010_auto_20200623_1624.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/0011_auto_20200623_1804.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/0012_auto_20200624_1432.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/0013_auto_20200624_1513.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/employee/forms.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/django_mathfilters-1.0.0.dist-info/INSTALLER" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/django_mathfilters-1.0.0.dist-info/LICENSE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/django_mathfilters-1.0.0.dist-info/METADATA" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/django_mathfilters-1.0.0.dist-info/RECORD" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/django_mathfilters-1.0.0.dist-info/WHEEL" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/django_mathfilters-1.0.0.dist-info/top_level.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/mathfilters/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/mathfilters/templatetags/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/mathfilters/templatetags/mathfilters.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/env/Lib/site-packages/mathfilters/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/water_management.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/water_management.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Admin/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/Admin/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Admin/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Admin/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Admin/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Admin/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/customer/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/customer/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/employee/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/employee/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inventory/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/inventory/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/accounts/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/accounts/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/accounts/register_corporate.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/accounts/register_corporate.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/admin/all-customers.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/all-customers.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/admin/allArea.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/allArea.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/admin/allCities.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/allCities.html" afterDir="false" />
@@ -58,6 +17,7 @@
       <change beforePath="$PROJECT_DIR$/templates/admin/newCity.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/newCity.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/admin/newProduct.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/newProduct.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/admin/newVehicle.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/newVehicle.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/orderVehicle.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/orderVehicle.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/admin/orders.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/orders.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/admin/records.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/records.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/admin/requests.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/requests.html" afterDir="false" />
@@ -66,12 +26,11 @@
       <change beforePath="$PROJECT_DIR$/templates/admin/updateSchedule.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/updateSchedule.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/customer/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/customer/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/customer/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/customer/profile.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/customer/view_orders.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/customer/view_orders.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/employee/areawise_orders.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/employee/areawise_orders.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/employee/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/employee/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/employee/order_delivery_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/employee/order_delivery_details.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/employee/order_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/employee/order_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/employee/ordered.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/employee/ordered.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/employee/schedule.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/employee/schedule.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/employee/selectVehicle.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/employee/selectVehicle.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/inventory/add_asset.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/inventory/add_asset.html" afterDir="false" />
@@ -239,7 +198,7 @@
       <workItem from="1594126511619" duration="9993000" />
       <workItem from="1594915002916" duration="4687000" />
       <workItem from="1594962136269" duration="6383000" />
-      <workItem from="1595191564216" duration="1232000" />
+      <workItem from="1595369476915" duration="717000" />
     </task>
     <task id="LOCAL-00001" summary="View profile of customer as well">
       <created>1592072950513</created>

@@ -13,30 +13,30 @@
 
     {% if user.is_authenticated %}
         <div class="container">
-    <div class="row">
-        <div class="col-3  d-none d-lg-block d-xl-block">
-            <div class="text-center">
-                <h3>Your Profile</h3><hr>
-            </div>
-            <div class="card">
-              <div class="text-center card-header">
-                <a  style="color: black;font-size: 1.3rem" >{{user.name}} </a>
-            </div>
-              <div class="card-body">
+            <div class="row">
+                <div class="col-3  d-sm-none d-md-block">
+                    <div class="text-center">
+                        <h3>Your Profile</h3>
+                        <hr>
+                    </div>
+                    <div class="card">
+                        <div class="text-center card-header">
+                            <a style="color: black;font-size: 1.3rem">{{ user.name }} </a>
+                        </div>
+                        <div class="card-body">
 
-            <p class="card-text">Employee id :&nbsp;&nbsp;{{ user.id }} </p>
-            <p class="card-text">Received Amount:&nbsp;&nbsp;{{ user.receivedAmount }} </p>
-            <p class="card-text">Received Bottles:&nbsp;&nbsp;{{ user.receivedBottle }} </p>
+                            <p class="card-text">Employee id :&nbsp;&nbsp;{{ user.id }} </p>
+                            <p class="card-text">Received Amount:&nbsp;&nbsp;{{ user.receivedAmount }} </p>
+                            <p class="card-text">Received Bottles:&nbsp;&nbsp;{{ user.receivedBottle }} </p>
 
 
-
-                  <div class="text-center card-header bg-transparent">
-                <a href = '{% url 'employee_profile' %}'   class="btn btn-dark">View Profile</a>
-                  </div>
-              </div>
-            </div>
-        </div>
-        <div class="col-lg-9 col-md-9 col-sm-12 ">
+                            <div class="text-center card-header bg-transparent">
+                                <a href='{% url 'employee_profile' %}' class="btn btn-dark">View Profile</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-12 ">
                     {% if request.user.is_authenticated %}
                         <div class="text-center">
                             <h3>Vehicle Schedule</h3>
@@ -54,6 +54,7 @@
                             </tr>
                             </thead>
                             <tbody>
+
                             {% for days in schedule %}
                                 <tr>
                                     <td>
@@ -65,6 +66,7 @@
 
                                 </tr>
                                 {% for area in days.areas.all %}
+
                                     <tr>
                                         <td>
                                             <a href="{% url 'areawise_orders' regNo days.day area.id %}">
@@ -76,6 +78,7 @@
                                         </td>
 
                                     </tr>
+
                                 {% endfor %}
                             {% endfor %}
                             </tbody>

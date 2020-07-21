@@ -21,7 +21,7 @@
     {% if user.is_authenticated %}
         <div class="container">
             <div class="row">
-                <div class="col-3  d-none d-lg-block d-xl-block">
+                <div class="col-3  d-sm-none d-md-block">
                     <div class="text-center">
                         <h3>Your Profile</h3>
                         <hr>
@@ -47,7 +47,7 @@
                 <div class="col-lg-9 col-md-9 col-sm-12 ">
 
                     <div class="text-center">
-                        <h3>All Assets</h3>
+                        <h3>Bottles Record</h3>
                     </div>
                     <hr>
 
@@ -69,14 +69,16 @@
                             {% for items in bottles %}
 
                                 <tr>
-                                {% load mathfilters %}
+                                    {% load mathfilters %}
                                     <td>{{ items.name }}</td>
                                     <td>{{ items.total|sub:items.distributed }}</td>
                                     <td>{{ items.distributed }}</td>
-                                    <td>{{ items.total|sub:items.filled |sub:items.distributed  }}</td>
-                                    <td><input type="number" value="{{ items.filled }}" name="filled"></td>
-                                    <td><input type="number" value="{{ items.total }}" name="total"> </td>
-                                    <input type="hidden" name="id" value="{{items.id}}">
+                                    <td>{{ items.total|sub:items.filled |sub:items.distributed }}</td>
+                                    <td><input type="number" value="{{ items.filled }}" name="filled"
+                                               class="form-control"></td>
+                                    <td><input type="number" value="{{ items.total }}" name="total"
+                                               class="form-control"></td>
+                                    <input type="hidden" name="id" value="{{ items.id }}">
                                     <td><input type="submit" class="btn btn-dark"></td>
 
                                 </tr>
@@ -87,7 +89,7 @@
                     </form>
                     {% if error %}
                         <div class="alert alert-danger text-center" role="alert">
-                          {{error}}
+                            {{ error }}
                         </div>
                     {% endif %}
 
