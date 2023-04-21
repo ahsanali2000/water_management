@@ -1,5 +1,5 @@
 # water_management
-Water management project is a sort of general software that can be used by any type of bussiness which don't have a large number of productos to manage all of their bussiness.
+Water management project is a sort of general software that can be used by any type of bussiness which don't have a large number of products to manage all of their bussiness.
 
 
 
